@@ -1,4 +1,6 @@
 ---
+import PackageCard from './PackageCard.astro';
+
 interface Props {
   packageRows: Array<{
     title: string;
@@ -9,113 +11,164 @@ interface Props {
 }
 
 const { packageRows, waLink } = Astro.props;
+
+const packageImages = [
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
+  'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80',
+  'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80',
+  'https://images.unsplash.com/photo-1472396961693-142e6e269027?w=800&q=80',
+  'https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800&q=80',
+  'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80',
+];
+
+const getImage = (index: number) => packageImages[index % packageImages.length];
 ---
 
 <section id="packages" class="section packages">
   <div class="wrap">
-    <p class="mono-label">PACKAGES</p>
-    <h2>Pick a route. We handle logistics, weather, and the honest bits.</h2>
-    <ul class="package-list">
-      {
-        packageRows.map((item) => (
-          <li class="package-row">
-            <div>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-            </div>
-            <div class="package-actions">
-              <a href={item.slug}>Read More</a>
-              <a href={waLink} target="_blank" rel="noreferrer">Book via WA</a>
-            </div>
-          </li>
-        ))
-      }
-    </ul>
+    <div class="packages-layout">
+      <div class="packages-intro">
+        <p class="mono-label">PACKAGES</p>
+        <h2>Go somewhere<br />nobody talks about.</h2>
+        <p class="intro-text">
+          We're still learning every road and every crossing. These routes are real, not polished for Instagram.
+        </p>
+        <a href={waLink} class="packages-cta" target="_blank" rel="noreferrer">
+          Start planning
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+      
+      <div class="packages-grid">
+        {
+          packageRows.map((item, index) => (
+            <PackageCard
+              title={item.title}
+              description={item.description}
+              slug={item.slug}
+              waLink={waLink}
+              image={getImage(index)}
+              tag={index === 0 ? 'Most Popular' : undefined}
+              variant={index === 0 ? 'featured' : index > 2 ? 'compact' : 'standard'}
+              index={index}
+            />
+          ))
+        }
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
   .packages {
-    background: var(--cream-2);
+    background: var(--bg-warm);
+    padding: 6rem 0 7rem;
   }
 
-  .packages h2 {
-    font-size: clamp(1.85rem, 6vw, 3rem);
-    margin-bottom: 1.8rem;
-    max-width: 24ch;
-  }
-
-  .package-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .packages-layout {
     display: grid;
-    gap: 0.8rem;
+    gap: 4rem;
   }
 
-  .package-row {
-    position: relative;
-    background: var(--white);
-    border: 1px solid var(--light);
-    padding: 1.25rem 1rem 1.2rem 1.2rem;
-    display: grid;
-    gap: 0.95rem;
-    box-shadow: 0 3px 0 rgba(28, 28, 24, 0.08);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  @media (min-width: 1024px) {
+    .packages-layout {
+      grid-template-columns: 380px 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
   }
 
-  .package-row::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: var(--lime);
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 0.25s ease;
+  .packages-intro {
+    position: sticky;
+    top: 6rem;
   }
 
-  .package-row:hover::before,
-  .package-row:focus-within::before {
-    transform: scaleY(1);
-  }
-
-  .package-row:hover,
-  .package-row:focus-within {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 0 rgba(42, 92, 26, 0.16);
-  }
-
-  .package-row h3 {
-    font-size: 1.12rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .package-row p {
-    color: var(--ink);
-  }
-
-  .package-actions {
+  .packages-intro .mono-label {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text);
     display: inline-flex;
-    flex-wrap: wrap;
-    gap: 0.85rem;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
   }
 
-  .package-actions a {
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--forest);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
+  .packages-intro .mono-label::before {
+    content: '';
+    display: block;
+    width: 1.5rem;
+    height: 1.5px;
+    background: var(--text);
   }
 
-  @media (min-width: 768px) {
-    .package-row {
-      grid-template-columns: 1fr auto;
-      align-items: end;
-      padding: 1.3rem 1.3rem 1.3rem 1.4rem;
+  .packages-intro h2 {
+    font-family: var(--font-sans);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: var(--dark);
+    margin: 0 0 1.5rem 0;
+  }
+
+  .intro-text {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text);
+    margin: 0 0 2rem 0;
+  }
+
+  .packages-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.75rem;
+    background: var(--dark);
+    color: var(--bg-warm);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .packages-cta:hover {
+    background: var(--forest);
+    transform: translateX(4px);
+  }
+
+  .packages-cta svg {
+    transition: transform 0.3s ease;
+  }
+
+  .packages-cta:hover svg {
+    transform: translateX(4px);
+  }
+
+  .packages-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .packages-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    :global(.card--featured) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .packages {
+      padding: 4rem 0 5rem;
     }
   }
 </style>
