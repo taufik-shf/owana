@@ -1,0 +1,329 @@
+---
+---
+
+<section id="why-us" class="section why-us">
+  <div class="wrap">
+    <div class="why-header">
+      <p class="mono-label">WHY US</p>
+      <h2 class="why-headline">Not another<br />tour company.</h2>
+    </div>
+
+    <div class="why-spread">
+      <!-- Left: Conservation story with image -->
+      <div class="why-story">
+        <div class="story-image-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=960&q=80"
+            srcset="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=480&q=80 480w, https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=768&q=80 768w, https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=960&q=80 960w"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="Sulawesi forest wildlife"
+            loading="lazy"
+          />
+        </div>
+        <div class="story-text">
+          <span class="story-label">CONSERVATION</span>
+          <p class="story-body">
+            A portion of every trip supports protection work in Sulawesi Tengah. No grants, no vague claims, no pressure on guests to participate.
+          </p>
+          <blockquote class="story-quote">"We protect what's already standing."</blockquote>
+        </div>
+      </div>
+
+      <!-- Right: Big numbered points -->
+      <div class="why-reasons">
+        <article class="reason">
+          <span class="reason-num">01</span>
+          <div class="reason-text">
+            <h3>No middleman markup</h3>
+            <p>You speak with the team running your route in Sulawesi Tengah, not a broker writing from another city.</p>
+          </div>
+        </article>
+        <article class="reason">
+          <span class="reason-num">02</span>
+          <div class="reason-text">
+            <h3>No scripted guiding</h3>
+            <p>We brief facts clearly, then make room for real conversation when plans, weather, or local events shift the day.</p>
+          </div>
+        </article>
+        <article class="reason">
+          <span class="reason-num">03</span>
+          <div class="reason-text">
+            <h3>No hidden fees</h3>
+            <p>What you confirm is what you pay. If logistics change, we explain options before money changes hands.</p>
+          </div>
+        </article>
+        <article class="reason">
+          <span class="reason-num">04</span>
+          <div class="reason-text">
+            <h3>No tourist-trap detours</h3>
+            <p>Partners are locally run families and crews we already know, not forced stops designed for commissions.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-us {
+    background: var(--bg-warm);
+    padding: 5rem 0 6rem;
+  }
+
+  .why-header {
+    margin-bottom: 3rem;
+  }
+
+  .why-header .mono-label {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .why-header .mono-label::before {
+    content: '';
+    display: block;
+    width: 1.5rem;
+    height: 1.5px;
+    background: var(--text);
+  }
+
+  .why-headline {
+    font-family: var(--font-sans);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: var(--dark);
+    margin: 0;
+  }
+
+  /* Spread layout */
+  .why-spread {
+    display: grid;
+    gap: 2rem;
+  }
+
+  /* Story panel */
+  .why-story {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .story-image-wrap {
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .story-image-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(26, 23, 20, 0.4), transparent);
+    pointer-events: none;
+  }
+
+  .story-image-wrap img {
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
+    display: block;
+    transition: filter 0.4s ease;
+  }
+
+  .story-image-wrap:hover img {
+    filter: brightness(1.05) saturate(1.1);
+  }
+
+  .story-text {
+    padding: 0 0.25rem;
+  }
+
+  .story-label {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--bg-warm);
+    background: var(--dark);
+    padding: 0.35rem 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .story-body {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--text);
+    margin: 0 0 1.25rem 0;
+  }
+
+  .story-quote {
+    font-family: var(--font-serif);
+    font-size: clamp(1.35rem, 4vw, 1.85rem);
+    font-style: italic;
+    line-height: 1.35;
+    color: var(--forest);
+    margin: 0;
+    padding-left: 1.25rem;
+    border-left: 3px solid var(--lime);
+  }
+
+  /* Reasons panel */
+  .why-reasons {
+    display: grid;
+    gap: 0;
+    padding-top: 1.5rem;
+  }
+
+  .reason {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 1.25rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+    transition: background 0.25s ease, filter 0.25s ease;
+  }
+
+  .reason:hover {
+    background: rgba(255, 255, 255, 0.5);
+    filter: brightness(1.02);
+  }
+
+  .reason:first-child {
+    padding-top: 0;
+  }
+
+  .reason:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .reason-num {
+    font-family: var(--font-mono);
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--light);
+    letter-spacing: -0.02em;
+    transition: color 0.3s ease;
+    overflow: visible;
+  }
+
+  .reason:hover .reason-num {
+    color: var(--lime);
+  }
+
+  .reason-text h3 {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--dark);
+    margin: 0 0 0.4rem 0;
+    padding-top: 0.35rem;
+    transition: color 0.2s ease;
+  }
+
+  .reason:hover .reason-text h3 {
+    color: var(--forest);
+  }
+
+  .reason-text p {
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--text);
+    margin: 0;
+  }
+
+  /* Tablet */
+  @media (min-width: 768px) {
+    .why-spread {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .why-story {
+      position: sticky;
+      top: 6rem;
+    }
+
+    .story-image-wrap img {
+      aspect-ratio: 2 / 1;
+    }
+
+    .reason {
+      grid-template-columns: 4rem 1fr;
+      padding: 1.75rem 0;
+      gap: 1.5rem;
+    }
+
+    .reason-num {
+      font-size: 2.75rem;
+    }
+
+    .reason-text h3 {
+      padding-top: 0.25rem;
+    }
+  }
+
+  /* Large */
+  @media (min-width: 1024px) {
+    .why-us {
+      padding: 6rem 0 7rem;
+    }
+
+    .why-spread {
+      gap: 4rem;
+    }
+
+    .reason {
+      grid-template-columns: 4.5rem 1fr;
+    }
+
+    .reason-num {
+      font-size: 3rem;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 639px) {
+    .why-us {
+      padding: 4rem 0 4.5rem;
+    }
+
+    .why-header {
+      margin-bottom: 2rem;
+    }
+
+    .story-image-wrap img {
+      aspect-ratio: 2.5 / 1;
+    }
+
+    .reason {
+      grid-template-columns: 2.75rem 1fr;
+    }
+
+    .reason-num {
+      font-size: 2rem;
+    }
+
+    .reason:hover {
+      background: transparent;
+      filter: none;
+    }
+  }
+</style>
