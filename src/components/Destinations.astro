@@ -12,9 +12,6 @@ interface Props {
 }
 
 const { destinationTeaser } = Astro.props;
-
-// Duplicate for infinite scroll effect
-const items = [...destinationTeaser, ...destinationTeaser];
 ---
 
 <section id="destinations" class="section destinations">
@@ -23,10 +20,10 @@ const items = [...destinationTeaser, ...destinationTeaser];
     <h2>Four places that prove Sulawesi Tengah is not one-note.</h2>
   </div>
   
-  <div class="carousel-container">
-    <div class="carousel-track">
+  <div class="carousel-container" data-carousel>
+    <div class="carousel-track" data-carousel-track>
       {
-        items.map((item, index) => (
+        destinationTeaser.map((item) => (
           <article class="carousel-item">
             <div class="carousel-image-wrap">
               <img 
@@ -54,6 +51,10 @@ const items = [...destinationTeaser, ...destinationTeaser];
         ))
       }
     </div>
+    
+    <div class="carousel-hint" aria-hidden="true">
+      <span>Scroll →</span>
+    </div>
   </div>
   
   <div class="destinations-footer wrap">
@@ -66,11 +67,98 @@ const items = [...destinationTeaser, ...destinationTeaser];
   </div>
 </section>
 
+<script>
+  const containers = document.querySelectorAll('[data-carousel]');
+  
+  containers.forEach(container => {
+    const track = container.querySelector('[data-carousel-track]') as HTMLElement;
+    if (!track) return;
+
+    let isDown = false;
+    let startX: number;
+    let scrollLeft: number;
+    let velX = 0;
+    let momentumID: number | null = null;
+
+    const startDrag = (e: MouseEvent) => {
+      isDown = true;
+      track.style.cursor = 'grabbing';
+      track.style.scrollBehavior = 'auto';
+      startX = e.pageX - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
+      cancelMomentum();
+    };
+
+    const endDrag = () => {
+      isDown = false;
+      track.style.cursor = 'grab';
+      beginMomentum();
+    };
+
+    const drag = (e: MouseEvent) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - track.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      const prevScrollLeft = track.scrollLeft;
+      track.scrollLeft = scrollLeft - walk;
+      velX = track.scrollLeft - prevScrollLeft;
+    };
+
+    const beginMomentum = () => {
+      cancelMomentum();
+      momentumID = requestAnimationFrame(momentumLoop);
+    };
+
+    const cancelMomentum = () => {
+      if (momentumID) {
+        cancelAnimationFrame(momentumID);
+        momentumID = null;
+      }
+    };
+
+    const momentumLoop = () => {
+      track.scrollLeft += velX;
+      velX *= 0.95;
+      if (Math.abs(velX) > 0.5) {
+        momentumID = requestAnimationFrame(momentumLoop);
+      }
+    };
+
+    // Mouse events
+    track.addEventListener('mousedown', startDrag);
+    track.addEventListener('mouseleave', endDrag);
+    track.addEventListener('mouseup', endDrag);
+    track.addEventListener('mousemove', drag);
+
+    // Touch events
+    track.addEventListener('touchstart', (e) => {
+      isDown = true;
+      startX = e.touches[0].pageX - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
+      cancelMomentum();
+    }, { passive: true });
+
+    track.addEventListener('touchend', () => {
+      isDown = false;
+      beginMomentum();
+    });
+
+    track.addEventListener('touchmove', (e) => {
+      if (!isDown) return;
+      const x = e.touches[0].pageX - track.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      const prevScrollLeft = track.scrollLeft;
+      track.scrollLeft = scrollLeft - walk;
+      velX = track.scrollLeft - prevScrollLeft;
+    }, { passive: true });
+  });
+</script>
+
 <style>
   .destinations {
     background: var(--bg-warm);
     padding: 6rem 0 5rem;
-    overflow: hidden;
   }
 
   .destinations-header {
@@ -109,38 +197,64 @@ const items = [...destinationTeaser, ...destinationTeaser];
   }
 
   .carousel-container {
+    position: relative;
     width: 100%;
-    overflow: hidden;
-    padding: 0 0 2rem;
   }
 
   .carousel-track {
     display: flex;
     gap: 1.5rem;
-    animation: scroll 40s linear infinite;
-    width: max-content;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 0.5rem 0 2rem;
+    cursor: grab;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
-  .carousel-track:hover {
-    animation-play-state: paused;
+  .carousel-track::-webkit-scrollbar {
+    display: none;
   }
 
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
+  .carousel-track:active {
+    cursor: grabbing;
+  }
+
+  .carousel-hint {
+    position: absolute;
+    right: 2rem;
+    bottom: 3rem;
+    pointer-events: none;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+
+  .carousel-hint span {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+    background: var(--bg-warm);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--light);
+  }
+
+  .carousel-container:hover .carousel-hint {
+    opacity: 0;
   }
 
   .carousel-item {
     flex: 0 0 auto;
     width: 320px;
+    scroll-snap-align: start;
     background: var(--white);
     border: 1px solid var(--light);
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
   }
 
   .carousel-item:hover {
@@ -159,6 +273,7 @@ const items = [...destinationTeaser, ...destinationTeaser];
     object-fit: cover;
     display: block;
     transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
   }
 
   .carousel-item:hover .carousel-image-wrap img {
@@ -174,6 +289,7 @@ const items = [...destinationTeaser, ...destinationTeaser];
     padding: 1rem;
     opacity: 0;
     transition: opacity 0.3s ease;
+    pointer-events: none;
   }
 
   .carousel-item:hover .carousel-overlay {
@@ -228,6 +344,7 @@ const items = [...destinationTeaser, ...destinationTeaser];
     color: var(--forest);
     text-decoration: none;
     transition: gap 0.2s ease;
+    pointer-events: auto;
   }
 
   .carousel-link:hover {
@@ -243,7 +360,7 @@ const items = [...destinationTeaser, ...destinationTeaser];
   }
 
   .destinations-footer {
-    padding-top: 2rem;
+    padding-top: 1.5rem;
   }
 
   .destinations-all {
@@ -295,6 +412,10 @@ const items = [...destinationTeaser, ...destinationTeaser];
 
     .carousel-image-wrap img {
       height: 180px;
+    }
+
+    .carousel-hint {
+      display: none;
     }
   }
 </style>
