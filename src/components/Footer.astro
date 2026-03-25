@@ -7,22 +7,52 @@ const { waLink } = Astro.props;
 ---
 
 <footer class="site-footer">
-  <div class="wrap footer-grid">
-    <div>
-      <p class="wordmark">GOWANA</p>
-      <p>Sulawesi Tengah, Indonesia</p>
+  <div class="wrap footer-content">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <p class="wordmark">GOWANA</p>
+        <p class="footer-tagline">Local tours, real routes.<br />Sulawesi Tengah, Indonesia.</p>
+      </div>
+      
+      <nav aria-label="Footer navigation" class="footer-nav">
+        <span class="footer-nav-label">Explore</span>
+        <div class="footer-links">
+          <a href="#destinations">Destinations</a>
+          <a href="#packages">Packages</a>
+          <a href="#about">About</a>
+          <a href="#why-us">Why Us</a>
+        </div>
+      </nav>
+      
+      <div class="footer-contact">
+        <span class="footer-nav-label">Contact</span>
+        <a href={waLink} class="footer-link" target="_blank" rel="noreferrer">
+          <span>WhatsApp</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+          </svg>
+        </a>
+        <a href="mailto:hello@gowana.id" class="footer-link">
+          <span>hello@gowana.id</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+        </a>
+      </div>
     </div>
-    <nav aria-label="Footer navigation" class="footer-links">
-      <a href="#destinations">Destinations</a>
-      <a href="#packages">Packages</a>
-      <a href="#about">About</a>
-      <a href="#conservation">Conservation</a>
-      <a href={waLink} target="_blank" rel="noreferrer">WhatsApp</a>
-    </nav>
-  </div>
-  <div class="wrap footer-meta">
-    <p>Proudly Amateur Since 2025. Sulawesi Tengah, Indonesia.</p>
-    <p>Warning: may cause severe addiction to Sulawesi.</p>
+    
+    <div class="footer-bottom">
+      <div class="footer-meta">
+        <p>Proudly Amateur Since 2025. Sulawesi Tengah, Indonesia.</p>
+        <p>Warning: may cause severe addiction to Sulawesi.</p>
+      </div>
+      <a href="#top" class="footer-back" aria-label="Back to top">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+      </a>
+    </div>
   </div>
 </footer>
 
@@ -30,7 +60,7 @@ const { waLink } = Astro.props;
   .site-footer {
     background: var(--ink);
     color: var(--cream);
-    padding: 2.4rem 0 1.3rem;
+    padding: 4rem 0 2rem;
     position: relative;
   }
 
@@ -42,41 +72,159 @@ const { waLink } = Astro.props;
     pointer-events: none;
   }
 
-  .footer-grid {
+  .footer-content {
+    position: relative;
+    z-index: 1;
     display: grid;
-    gap: 1.4rem;
-    padding-bottom: 1.2rem;
-    border-bottom: 1px solid rgba(242, 237, 228, 0.2);
+    gap: 3rem;
   }
 
-  .footer-grid .wordmark {
-    margin-bottom: 0.3rem;
+  .footer-top {
+    display: grid;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  @media (min-width: 768px) {
+    .footer-top {
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+  }
+
+  .footer-brand {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .wordmark {
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    margin: 0;
+  }
+
+  .footer-tagline {
+    font-family: var(--font-sans);
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: rgba(250, 247, 242, 0.6);
+    margin: 0;
+  }
+
+  .footer-nav,
+  .footer-contact {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .footer-nav-label {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(250, 247, 242, 0.4);
   }
 
   .footer-links {
     display: grid;
-    gap: 0.45rem;
+    gap: 0.5rem;
   }
 
   .footer-links a {
+    font-family: var(--font-sans);
     font-size: 0.94rem;
+    font-weight: 500;
+    color: var(--cream);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--lime);
+  }
+
+  .footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.94rem;
+    font-weight: 500;
+    color: var(--cream);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-link:hover {
+    color: var(--lime);
+  }
+
+  .footer-link svg {
+    transition: transform 0.2s ease;
+  }
+
+  .footer-link:hover svg {
+    transform: translate(2px, -2px);
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(250, 247, 242, 0.1);
+    gap: 1.5rem;
   }
 
   .footer-meta {
-    padding-top: 1rem;
     display: grid;
     gap: 0.35rem;
     font-family: var(--font-mono);
-    font-size: 0.64rem;
+    font-size: 0.6rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--tan);
+    color: rgba(250, 247, 242, 0.4);
   }
 
-  @media (min-width: 768px) {
-    .footer-grid {
-      grid-template-columns: 1fr auto;
-      align-items: start;
+  .footer-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(250, 247, 242, 0.2);
+    color: var(--cream);
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .footer-back:hover {
+    background: rgba(250, 247, 242, 0.1);
+    border-color: rgba(250, 247, 242, 0.4);
+  }
+
+  @media (max-width: 639px) {
+    .site-footer {
+      padding: 3rem 0 1.5rem;
+    }
+
+    .footer-content {
+      gap: 2rem;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .footer-back {
+      align-self: flex-end;
     }
   }
 </style>
