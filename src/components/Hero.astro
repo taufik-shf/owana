@@ -10,32 +10,35 @@ const { waLink } = Astro.props;
 
 <div class="hero-frame" id="top">
   <section class="hero" aria-label="GOWANA introduction">
-    <div class="hero-bg" aria-hidden="true" style={`--hero-bg: url(${heroImage.src})`}></div>
-    <div class="hero-overlay" aria-hidden="true"></div>
-    <div class="hero-fade" aria-hidden="true"></div>
-
     <div class="wrap hero-shell">
-      <div class="hero-meta">
-        <div class="hero-credit">
-          <div>Danau Paisupok - Sulawesi Tengah</div>
-          <div>0°32'S 121°35'E</div>
-          <div>Nobody talks about this place. We live here.</div>
+      <div class="hero-content">
+        <div class="hero-left">
+          <h1 class="hero-title">
+            We'll Guide<br />
+            <span class="hero-title-accent">You for Free.</span>
+          </h1>
+        </div>
+        <div class="hero-right">
+          <p class="hero-sub">
+            First year operating.
+          </p>
+          <p class="hero-sub">
+           Pay only for your personal expenses. 
+          </p>
+          <p class="hero-sub">
+            Limited period only.
+          </p>
+          <a class="hero-cta" href={waLink} target="_blank" rel="noreferrer">
+            <span>Book a tour</span>
+            <svg class="hero-cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
         </div>
       </div>
-      <div class="hero-content">
-        <p class="hero-stamp hero-badge">
-          <span class="hero-badge-dot" aria-hidden="true"></span>
-          <span class="hero-badge-text">Go Deeper. Go Wana.</span>
-        </p>
-        <h1 class="hero-title">We'll Guide You for Free.</h1>
-        <p class="hero-sub">
-          First year operating. You pay for your expenses. Limited period only.
-        </p>
-        <span class="hero-eyebrow" aria-hidden="true"></span>
-        <div class="hero-actions">
-          <a class="button" href="#about">Explore Sulawesi Tengah</a>
-          <a class="button button-ghost" href={waLink} target="_blank" rel="noreferrer">Chat on WhatsApp</a>
-        </div>
+      
+      <div class="hero-images">
+        <img class="hero-image" src={heroImage.src} alt="Sulawesi Tengah landscapes" loading="eager" />
       </div>
     </div>
   </section>
@@ -45,19 +48,18 @@ const { waLink } = Astro.props;
   .hero-frame {
     width: 100%;
     margin: 0;
-    overflow: clip;
-    background: var(--cream);
+    background: #efe9df;
     position: relative;
+    min-height: 100vh;
   }
 
   .hero {
     position: relative;
     width: 100%;
-    height: 120vh;
-    min-height: 700px;
-    overflow: hidden;
+    min-height: 100vh;
     display: flex;
-    color: var(--white);
+    flex-direction: column;
+    color: var(--ink);
   }
 
   .hero-shell {
@@ -65,188 +67,133 @@ const { waLink } = Astro.props;
     z-index: 3;
     display: flex;
     flex-direction: column;
-    min-height: 100%;
-    padding-top: 5.2rem;
-    padding-bottom: 2.6rem;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background: var(--hero-bg) center 60% / cover no-repeat;
-    transform: scale(1.05);
-    animation: heroZoom 18s ease-out forwards;
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(160deg, rgba(10, 30, 18, 0.72) 0%, rgba(10, 30, 18, 0.38) 50%, rgba(10, 30, 18, 0.1) 80%, transparent 100%);
-    z-index: 1;
-  }
-
-  .hero-fade {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 320px;
-    background: linear-gradient(to bottom, transparent 0%, rgba(242, 237, 228, 0.4) 42%, rgba(242, 237, 228, 0.85) 70%, var(--cream) 100%);
-    z-index: 2;
-    pointer-events: none;
+    flex: 1;
+    padding-top: 6rem;
+    padding-bottom: 3rem;
+    gap: 3rem;
   }
 
   .hero-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.95rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: end;
     animation: fadeUp 0.6s ease-out;
+    padding-top: 3rem;
   }
 
-  .hero-eyebrow {
-    display: inline-block;
-    width: 2.25rem;
-    height: 2px;
-    background: var(--lime-light);
-    margin-bottom: 1.2rem;
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    gap: 0.5rem;
   }
 
   .hero-title {
-    font-size: 3rem;
+    font-family: var(--font-sans);
+    font-size: clamp(3.5rem, 7vw, 4.5rem);
+    font-weight: 800;
     line-height: 1.02;
-    text-shadow: 0 2px 24px rgba(10, 30, 18, 0.35);
-    margin-bottom: 0.1rem;
+    letter-spacing: -0.04em;
+    color: #1a1714;
+    margin: 0;
   }
 
-  .hero-title em {
-    font-style: italic;
-    color: var(--lime-light);
+  .hero-title-accent {
+    font-weight: 800;
+    letter-spacing: -0.03em;
   }
 
   .hero-sub {
-    font-size: 1.2rem;
-    line-height: 1.75;
-    color: rgba(250, 247, 242, 0.88);
-    margin-bottom: 2.6rem;
-    text-shadow: 0 1px 8px rgba(10, 30, 18, 0.3);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 400;
+    line-height: 1.65;
+    color: #5a544a;
+    max-width: 320px;
   }
 
-  .hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-
-  .hero-actions .button {
-    padding: 0.75rem 1rem;
-  }
-
-  .hero-actions .button-ghost {
-    background: rgba(28, 28, 24, 0.25);
-    border-color: rgba(250, 247, 242, 0.78);
-    color: var(--white);
-  }
-
-  .hero-actions .button-ghost:hover,
-  .hero-actions .button-ghost:focus-visible {
-    background: rgba(250, 247, 242, 0.16);
-  }
-
-  .hero-stamp {
-    margin-top: 0.35rem;
+  .hero-cta {
     display: inline-flex;
-    width: fit-content;
-  }
-
-  .hero-meta {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    gap: 1rem;
-  }
-
-  .hero-badge {
-    position: static;
-    display: flex;
     align-items: center;
-    gap: 0.65rem;
-    padding: 0.5rem 0.8rem 0.5rem 0.6rem;
-    background: rgba(10, 30, 18, 0.55);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(168, 208, 96, 0.25);
-  }
-
-  .hero-badge-dot {
-    width: 0.5rem;
-    height: 0.5rem;
+    gap: 0.75rem;
+    padding: 0.9rem 1.4rem;
+    background: #1a1714;
+    color: var(--cream);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.95rem;
     border-radius: 999px;
-    background: var(--lime-light);
-    animation: badgePulse 2s ease-in-out infinite;
+    transition: background 0.2s ease, transform 0.2s ease;
+    margin-top: 0.5rem;
   }
 
-  .hero-badge-text {
-    font-family: var(--font-mono);
-    font-size: 0.55rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(250, 247, 242, 0.78);
+  .hero-cta:hover {
+    background: #2d2822;
+    transform: translateX(4px);
   }
 
-  .hero-credit {
-    position: static;
-    margin-top: 4rem;
-    text-align: right;
-    font-family: var(--font-mono);
-    font-size: 0.55rem;
-    line-height: 2;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(250, 247, 242, 0.42);
+  .hero-cta-arrow {
+    transition: transform 0.2s ease;
   }
 
-  @media (max-width: 960px) {
-    .hero {
-      min-height: 680px;
-    }
+  .hero-cta:hover .hero-cta-arrow {
+    transform: translateX(4px);
+  }
 
+  .hero-images {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-image {
+    width: 100%;
+    aspect-ratio: 16 / 6;
+    object-fit: cover;
+    display: block;
+    border-radius: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
     .hero-shell {
-      padding-top: 4.9rem;
-      padding-bottom: 1.8rem;
+      padding-top: 4rem;
+      padding-bottom: 2rem;
+      gap: 2rem;
     }
 
     .hero-content {
-      max-width: 100%;
-      gap: 0.85rem;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .hero-right {
+      align-items: flex-start;
+      text-align: left;
     }
 
     .hero-title {
-      max-width: 11ch;
+      font-size: clamp(2.5rem, 10vw, 3.5rem);
     }
 
-    .hero-meta {
-      justify-content: flex-end;
+    .hero-sub {
+      max-width: 100%;
     }
 
-    .hero-credit {
-      max-width: min(70vw, 24rem);
-      font-size: 0.5rem;
-      letter-spacing: 0.11em;
-      line-height: 1.8;
+    .hero-image {
+      aspect-ratio: 16 / 9;
+      border-radius: 1rem;
     }
   }
 
-  @media (min-width: 1024px) {
-    .hero-shell {
-      padding-top: 4.7rem;
-      padding-bottom: 2.8rem;
-    }
-  }
-
-  @media (min-width: 1280px) {
-    .hero-content h1 {
-      font-size: 3rem;
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
     }
   }
 </style>
