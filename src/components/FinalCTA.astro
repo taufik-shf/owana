@@ -1,0 +1,53 @@
+---
+interface Props {
+  waLink: string;
+}
+
+const { waLink } = Astro.props;
+---
+
+<section class="section final-cta">
+  <div class="wrap cta-inner">
+    <h2>Tell us your timing and interests. We'll map the right route.</h2>
+    <a class="button button-light" href={waLink} target="_blank" rel="noreferrer">Chat on WhatsApp</a>
+    <p>No forms. No bots. A real person from Sulawesi Tengah.</p>
+  </div>
+</section>
+
+<style>
+  .final-cta {
+    background: var(--forest);
+    color: var(--white);
+    position: relative;
+  }
+
+  .final-cta::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 15% 25%, rgba(168, 208, 96, 0.16), transparent 35%);
+    pointer-events: none;
+  }
+
+  .cta-inner {
+    display: grid;
+    gap: 1rem;
+    justify-items: start;
+  }
+
+  .cta-inner h2 {
+    font-size: clamp(2rem, 7vw, 3.3rem);
+    max-width: 18ch;
+  }
+
+  .cta-inner p {
+    font-family: var(--font-mono);
+    font-size: 0.67rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    opacity: 0.95;
+    background: rgba(28, 28, 24, 0.25);
+    padding: 0.38rem 0.52rem;
+    border: 1px solid rgba(250, 247, 242, 0.25);
+  }
+</style>

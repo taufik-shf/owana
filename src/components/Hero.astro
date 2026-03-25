@@ -1,0 +1,252 @@
+---
+import heroImage from '../assets/home/hero.jpg';
+
+interface Props {
+  waLink: string;
+}
+
+const { waLink } = Astro.props;
+---
+
+<div class="hero-frame" id="top">
+  <section class="hero" aria-label="GOWANA introduction">
+    <div class="hero-bg" aria-hidden="true" style={`--hero-bg: url(${heroImage.src})`}></div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="hero-fade" aria-hidden="true"></div>
+
+    <div class="wrap hero-shell">
+      <div class="hero-meta">
+        <div class="hero-credit">
+          <div>Danau Paisupok - Sulawesi Tengah</div>
+          <div>0°32'S 121°35'E</div>
+          <div>Nobody talks about this place. We live here.</div>
+        </div>
+      </div>
+      <div class="hero-content">
+        <p class="hero-stamp hero-badge">
+          <span class="hero-badge-dot" aria-hidden="true"></span>
+          <span class="hero-badge-text">Go Deeper. Go Wana.</span>
+        </p>
+        <h1 class="hero-title">We'll Guide You for Free.</h1>
+        <p class="hero-sub">
+          First year operating. You pay for your expenses. Limited period only.
+        </p>
+        <span class="hero-eyebrow" aria-hidden="true"></span>
+        <div class="hero-actions">
+          <a class="button" href="#about">Explore Sulawesi Tengah</a>
+          <a class="button button-ghost" href={waLink} target="_blank" rel="noreferrer">Chat on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  .hero-frame {
+    width: 100%;
+    margin: 0;
+    overflow: clip;
+    background: var(--cream);
+    position: relative;
+  }
+
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 120vh;
+    min-height: 700px;
+    overflow: hidden;
+    display: flex;
+    color: var(--white);
+  }
+
+  .hero-shell {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding-top: 5.2rem;
+    padding-bottom: 2.6rem;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: var(--hero-bg) center 60% / cover no-repeat;
+    transform: scale(1.05);
+    animation: heroZoom 18s ease-out forwards;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(10, 30, 18, 0.72) 0%, rgba(10, 30, 18, 0.38) 50%, rgba(10, 30, 18, 0.1) 80%, transparent 100%);
+    z-index: 1;
+  }
+
+  .hero-fade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 320px;
+    background: linear-gradient(to bottom, transparent 0%, rgba(242, 237, 228, 0.4) 42%, rgba(242, 237, 228, 0.85) 70%, var(--cream) 100%);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.95rem;
+    animation: fadeUp 0.6s ease-out;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    width: 2.25rem;
+    height: 2px;
+    background: var(--lime-light);
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    line-height: 1.02;
+    text-shadow: 0 2px 24px rgba(10, 30, 18, 0.35);
+    margin-bottom: 0.1rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--lime-light);
+  }
+
+  .hero-sub {
+    font-size: 1.2rem;
+    line-height: 1.75;
+    color: rgba(250, 247, 242, 0.88);
+    margin-bottom: 2.6rem;
+    text-shadow: 0 1px 8px rgba(10, 30, 18, 0.3);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .hero-actions .button {
+    padding: 0.75rem 1rem;
+  }
+
+  .hero-actions .button-ghost {
+    background: rgba(28, 28, 24, 0.25);
+    border-color: rgba(250, 247, 242, 0.78);
+    color: var(--white);
+  }
+
+  .hero-actions .button-ghost:hover,
+  .hero-actions .button-ghost:focus-visible {
+    background: rgba(250, 247, 242, 0.16);
+  }
+
+  .hero-stamp {
+    margin-top: 0.35rem;
+    display: inline-flex;
+    width: fit-content;
+  }
+
+  .hero-meta {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 1rem;
+  }
+
+  .hero-badge {
+    position: static;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.5rem 0.8rem 0.5rem 0.6rem;
+    background: rgba(10, 30, 18, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(168, 208, 96, 0.25);
+  }
+
+  .hero-badge-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--lime-light);
+    animation: badgePulse 2s ease-in-out infinite;
+  }
+
+  .hero-badge-text {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(250, 247, 242, 0.78);
+  }
+
+  .hero-credit {
+    position: static;
+    margin-top: 4rem;
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    line-height: 2;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(250, 247, 242, 0.42);
+  }
+
+  @media (max-width: 960px) {
+    .hero {
+      min-height: 680px;
+    }
+
+    .hero-shell {
+      padding-top: 4.9rem;
+      padding-bottom: 1.8rem;
+    }
+
+    .hero-content {
+      max-width: 100%;
+      gap: 0.85rem;
+    }
+
+    .hero-title {
+      max-width: 11ch;
+    }
+
+    .hero-meta {
+      justify-content: flex-end;
+    }
+
+    .hero-credit {
+      max-width: min(70vw, 24rem);
+      font-size: 0.5rem;
+      letter-spacing: 0.11em;
+      line-height: 1.8;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-shell {
+      padding-top: 4.7rem;
+      padding-bottom: 2.8rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .hero-content h1 {
+      font-size: 3rem;
+    }
+  }
+</style>

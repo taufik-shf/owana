@@ -1,0 +1,96 @@
+---
+interface Props {
+  destinationTeaser: Array<{
+    label: string;
+    name: string;
+    line: string;
+    image: string;
+    imageSet: string;
+    alt: string;
+    slug: string;
+  }>;
+}
+
+const { destinationTeaser } = Astro.props;
+---
+
+<section id="destinations" class="section destinations">
+  <div class="wrap">
+    <p class="mono-label">DESTINATIONS</p>
+    <h2>Four places that prove Sulawesi Tengah is not one-note.</h2>
+    <div class="destination-grid">
+      {
+        destinationTeaser.map((item) => (
+          <article class="destination-item">
+            <img src={item.image} srcset={item.imageSet} sizes="(min-width: 768px) 47vw, 100vw" alt={item.alt} loading="lazy" />
+            <p class="space-label">{item.label}</p>
+            <h3>{item.name}</h3>
+            <p>{item.line}</p>
+            <a href={item.slug}>Explore Destination</a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .destinations {
+    background: var(--cream);
+  }
+
+  .destinations h2 {
+    font-size: clamp(1.85rem, 6vw, 3rem);
+    margin-bottom: 1.8rem;
+    max-width: 26ch;
+  }
+
+  .destination-grid {
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .destination-item {
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--tan);
+  }
+
+  .destination-item img {
+    margin-bottom: 0.9rem;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border: 1px solid var(--light);
+    filter: saturate(1.08) contrast(1.02);
+    box-shadow: 5px 5px 0 rgba(61, 122, 34, 0.2);
+  }
+
+  .destination-item h3 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 1.5rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .destination-item a {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--forest);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  @media (min-width: 768px) {
+    .destination-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 1.7rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .destination-item {
+      padding-right: 1rem;
+    }
+  }
+</style>

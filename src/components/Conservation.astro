@@ -1,0 +1,69 @@
+---
+---
+
+<section id="conservation" class="section conservation">
+  <div class="wrap conservation-grid">
+    <div class="conservation-media">
+      <img
+        src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=960&q=80"
+        srcset="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=480&q=80 480w, https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=768&q=80 768w, https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1200&q=80 1200w"
+        sizes="(min-width: 1024px) 42vw, 100vw"
+        alt="Sulawesi forest wildlife route"
+        loading="lazy"
+      />
+    </div>
+    <div>
+      <p class="mono-label">CONSERVATION</p>
+      <h2>Tour-funded protection, reported plainly.</h2>
+      <p>
+        A portion of every trip supports protection work in Sulawesi Tengah. No grants, no vague claims, and no pressure
+        on guests to participate.
+      </p>
+      <p>
+        Our focus is protect-first: keeping existing forest corridors standing, then documenting work with photos, routes,
+        and local partner updates.
+      </p>
+      <blockquote>"We protect what's already standing."</blockquote>
+    </div>
+  </div>
+</section>
+
+<style>
+  .conservation {
+    background: var(--cream-2);
+  }
+
+  .conservation-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .conservation-grid h2 {
+    font-size: clamp(1.8rem, 5.8vw, 2.75rem);
+    margin-bottom: 1rem;
+  }
+
+  .conservation-grid p + p {
+    margin-top: 0.8rem;
+  }
+
+  .conservation-grid blockquote {
+    margin: 1.1rem 0 0;
+    font-family: var(--font-serif);
+    font-size: clamp(1.35rem, 5vw, 1.95rem);
+    font-style: italic;
+    color: var(--forest);
+  }
+
+  .conservation-media {
+    border: 1px solid var(--light);
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .conservation-grid {
+      grid-template-columns: 0.95fr 1.05fr;
+      align-items: center;
+    }
+  }
+</style>

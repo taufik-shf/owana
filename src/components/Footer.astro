@@ -1,0 +1,82 @@
+---
+interface Props {
+  waLink: string;
+}
+
+const { waLink } = Astro.props;
+---
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="wordmark">GOWANA</p>
+      <p>Sulawesi Tengah, Indonesia</p>
+    </div>
+    <nav aria-label="Footer navigation" class="footer-links">
+      <a href="#destinations">Destinations</a>
+      <a href="#packages">Packages</a>
+      <a href="#about">About</a>
+      <a href="#conservation">Conservation</a>
+      <a href={waLink} target="_blank" rel="noreferrer">WhatsApp</a>
+    </nav>
+  </div>
+  <div class="wrap footer-meta">
+    <p>Proudly Amateur Since 2025. Sulawesi Tengah, Indonesia.</p>
+    <p>Warning: may cause severe addiction to Sulawesi.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 2.4rem 0 1.3rem;
+    position: relative;
+  }
+
+  .site-footer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, rgba(250, 247, 242, 0.03) 0 1px, transparent 1px 5px);
+    pointer-events: none;
+  }
+
+  .footer-grid {
+    display: grid;
+    gap: 1.4rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid rgba(242, 237, 228, 0.2);
+  }
+
+  .footer-grid .wordmark {
+    margin-bottom: 0.3rem;
+  }
+
+  .footer-links {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .footer-links a {
+    font-size: 0.94rem;
+  }
+
+  .footer-meta {
+    padding-top: 1rem;
+    display: grid;
+    gap: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tan);
+  }
+
+  @media (min-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 1fr auto;
+      align-items: start;
+    }
+  }
+</style>

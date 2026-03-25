@@ -1,0 +1,121 @@
+---
+interface Props {
+  packageRows: Array<{
+    title: string;
+    description: string;
+    slug: string;
+  }>;
+  waLink: string;
+}
+
+const { packageRows, waLink } = Astro.props;
+---
+
+<section id="packages" class="section packages">
+  <div class="wrap">
+    <p class="mono-label">PACKAGES</p>
+    <h2>Pick a route. We handle logistics, weather, and the honest bits.</h2>
+    <ul class="package-list">
+      {
+        packageRows.map((item) => (
+          <li class="package-row">
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+            <div class="package-actions">
+              <a href={item.slug}>Read More</a>
+              <a href={waLink} target="_blank" rel="noreferrer">Book via WA</a>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .packages {
+    background: var(--cream-2);
+  }
+
+  .packages h2 {
+    font-size: clamp(1.85rem, 6vw, 3rem);
+    margin-bottom: 1.8rem;
+    max-width: 24ch;
+  }
+
+  .package-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .package-row {
+    position: relative;
+    background: var(--white);
+    border: 1px solid var(--light);
+    padding: 1.25rem 1rem 1.2rem 1.2rem;
+    display: grid;
+    gap: 0.95rem;
+    box-shadow: 0 3px 0 rgba(28, 28, 24, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .package-row::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--lime);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.25s ease;
+  }
+
+  .package-row:hover::before,
+  .package-row:focus-within::before {
+    transform: scaleY(1);
+  }
+
+  .package-row:hover,
+  .package-row:focus-within {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 rgba(42, 92, 26, 0.16);
+  }
+
+  .package-row h3 {
+    font-size: 1.12rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .package-row p {
+    color: var(--ink);
+  }
+
+  .package-actions {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+
+  .package-actions a {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--forest);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  @media (min-width: 768px) {
+    .package-row {
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      padding: 1.3rem 1.3rem 1.3rem 1.4rem;
+    }
+  }
+</style>

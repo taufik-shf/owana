@@ -1,0 +1,269 @@
+---
+---
+
+<div class="map-card">
+  <div class="map-header">
+    <span class="map-header-title">Peta Wilayah - Sulawesi Tengah</span>
+    <span class="map-header-coords">0°32'S 121°35'E</span>
+  </div>
+  <div class="map-body"><div id="sulawesi-map" aria-label="Map of Sulawesi Tengah locations"></div></div>
+  <div class="map-footer">
+    <div class="map-legend-item">
+      <div class="map-legend-dot is-capital"></div>
+      Capital
+    </div>
+    <div class="map-legend-item">
+      <div class="map-legend-dot is-city"></div>
+      City
+    </div>
+  </div>
+</div>
+
+<style>
+  .map-card {
+    background: var(--white);
+    border-radius: 1.2rem;
+    border: 1px solid var(--light);
+    overflow: hidden;
+    box-shadow: 0 6px 40px rgba(28, 28, 24, 0.07);
+  }
+
+  .map-header {
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    border-bottom: 1px solid var(--light);
+  }
+
+  .map-header-title,
+  .map-header-coords {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  .map-header-title {
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+  }
+
+  .map-header-coords {
+    font-size: 0.53rem;
+    letter-spacing: 0.1em;
+    color: var(--tan);
+  }
+
+  .map-body {
+    padding: 0;
+    background: linear-gradient(160deg, var(--cream-2), var(--white));
+  }
+
+  #sulawesi-map {
+    width: 100%;
+    height: 460px;
+  }
+
+  .maplibregl-ctrl-group {
+    background: var(--white) !important;
+    border: 1px solid var(--light) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 12px rgba(28, 28, 24, 0.08) !important;
+    overflow: hidden;
+  }
+
+  .maplibregl-popup-content {
+    padding: 0 !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(28, 28, 24, 0.14) !important;
+    border: 1px solid var(--light) !important;
+  }
+
+  .maplibregl-popup-tip {
+    display: none !important;
+  }
+
+  .map-footer {
+    padding: 0.85rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    border-top: 1px solid var(--light);
+    flex-wrap: wrap;
+  }
+
+  .map-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.44rem;
+    font-family: var(--font-mono);
+    font-size: 0.52rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  .map-legend-dot {
+    width: 0.58rem;
+    height: 0.58rem;
+    border-radius: 999px;
+    flex-shrink: 0;
+  }
+
+  .map-legend-dot.is-capital {
+    background: var(--forest);
+  }
+
+  .map-legend-dot.is-city {
+    background: var(--lime);
+  }
+
+  @media (max-width: 960px) {
+    #sulawesi-map {
+      height: 400px;
+    }
+  }
+</style>
+
+<script>
+  const mapTarget = document.getElementById('sulawesi-map');
+  if (mapTarget && typeof maplibregl !== 'undefined') {
+    const map = new maplibregl.Map({
+      container: 'sulawesi-map',
+      style: 'https://tiles.openfreemap.org/styles/liberty',
+      center: [121.2, -0.95],
+      zoom: 6.5,
+      minZoom: 5,
+      maxZoom: 14,
+      attributionControl: false
+    });
+
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+    map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
+
+    const locations = [
+      {
+        name: 'Palu',
+        coords: [119.8707, -0.8917],
+        type: 'capital',
+        desc: 'Provincial capital of Sulawesi Tengah'
+      },
+      {
+        name: 'Donggala',
+        coords: [119.7442, -0.6833],
+        type: 'city',
+        desc: 'West coast routes and sea nomad communities'
+      },
+      {
+        name: 'Poso',
+        coords: [120.7558, -1.3967],
+        type: 'city',
+        desc: 'Highland lakes and Wana territory gateways'
+      },
+      {
+        name: 'Luwuk',
+        coords: [122.7925, -0.9425],
+        type: 'city',
+        desc: 'Banggai access point for island and coast runs'
+      }
+    ];
+
+    const markerCfg = {
+      capital: { color: '#2A5C1A', border: '#A8D060', size: 16, pulse: '2s' },
+      city: { color: '#6FA82F', border: '#FAF7F2', size: 12, pulse: '2.6s' }
+    };
+
+    map.on('load', () => {
+      locations.forEach((loc) => {
+        const cfg = markerCfg[loc.type];
+
+        const wrap = document.createElement('div');
+        wrap.style.cssText = `
+          position: relative;
+          width: ${cfg.size + 16}px;
+          height: ${cfg.size + 16}px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        `;
+
+        const ring = document.createElement('div');
+        ring.style.cssText = `
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: ${cfg.size + 14}px;
+          height: ${cfg.size + 14}px;
+          border-radius: 50%;
+          border: 2px solid ${cfg.color};
+          opacity: 0;
+          animation: mapPulse ${cfg.pulse} ease-out infinite;
+          pointer-events: none;
+        `;
+        wrap.appendChild(ring);
+
+        const dot = document.createElement('div');
+        dot.style.cssText = `
+          width: ${cfg.size}px;
+          height: ${cfg.size}px;
+          background: ${cfg.color};
+          border-radius: 50%;
+          border: 2.5px solid ${cfg.border};
+          box-shadow: 0 2px 10px rgba(28, 28, 24, 0.35);
+          transition: transform 0.15s;
+          position: relative;
+          z-index: 1;
+        `;
+        wrap.appendChild(dot);
+
+        const label = document.createElement('div');
+        label.textContent = loc.name;
+        label.style.cssText = `
+          position: absolute;
+          top: calc(100% + 4px);
+          left: 50%;
+          transform: translateX(-50%);
+          font-family: Inter, sans-serif;
+          font-size: 10px;
+          font-weight: 700;
+          color: #1C1C18;
+          white-space: nowrap;
+          background: rgba(250, 247, 242, 0.9);
+          padding: 2px 6px;
+          border-radius: 4px;
+          pointer-events: none;
+          letter-spacing: 0.2px;
+          box-shadow: 0 1px 4px rgba(28, 28, 24, 0.12);
+        `;
+        wrap.appendChild(label);
+
+        wrap.addEventListener('mouseenter', () => {
+          dot.style.transform = 'scale(1.28)';
+        });
+        wrap.addEventListener('mouseleave', () => {
+          dot.style.transform = 'scale(1)';
+        });
+
+        const popup = new maplibregl.Popup({
+          offset: [0, -(cfg.size + 20)],
+          closeButton: false,
+          closeOnClick: true,
+          maxWidth: '220px'
+        }).setHTML(`
+          <div style="font-family:Inter,sans-serif;padding:12px 16px;background:#FAF7F2;">
+            <div style="font-family:'DM Serif Display',serif;font-size:15px;color:#2A5C1A;margin-bottom:5px;">${loc.name}</div>
+            <div style="font-size:11px;color:#7A7A6E;line-height:1.55;">${loc.desc}</div>
+          </div>
+        `);
+
+        new maplibregl.Marker({ element: wrap, anchor: 'center' })
+          .setLngLat(loc.coords)
+          .setPopup(popup)
+          .addTo(map);
+      });
+    });
+  }
+</script>
