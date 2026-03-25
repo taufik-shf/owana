@@ -36,7 +36,7 @@ import Map from './Map.astro';
 
 <style>
   .about {
-    background: #efe9df;
+    background: var(--bg-warm);
     padding: 5rem 0 6rem;
   }
 
@@ -55,7 +55,7 @@ import Map from './Map.astro';
     font-size: 0.64rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #5a544a;
+    color: var(--text);
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
@@ -67,7 +67,7 @@ import Map from './Map.astro';
     display: inline-block;
     width: 1.5rem;
     height: 1.5px;
-    background: #5a544a;
+    background: var(--text);
   }
 
   .about-title {
@@ -76,13 +76,13 @@ import Map from './Map.astro';
     font-weight: 800;
     line-height: 1.05;
     letter-spacing: -0.04em;
-    color: #1a1714;
+    color: var(--dark);
     margin-bottom: 1.5rem;
   }
 
   .about-title em {
     font-style: normal;
-    color: #1a1714;
+    color: var(--dark);
   }
 
   .about-body {
@@ -90,7 +90,7 @@ import Map from './Map.astro';
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.7;
-    color: #5a544a;
+    color: var(--text);
     margin-bottom: 1.5rem;
     max-width: 28rem;
   }
@@ -98,12 +98,12 @@ import Map from './Map.astro';
   .about-tagline {
     margin: 0 0 2rem;
     padding-left: 1.25rem;
-    border-left: 2px solid #1a1714;
+    border-left: 2px solid var(--dark);
     font-family: var(--font-sans);
     font-style: italic;
     font-size: 1.1rem;
     line-height: 1.6;
-    color: #1a1714;
+    color: var(--dark);
   }
 
   .about-stats {
@@ -111,7 +111,7 @@ import Map from './Map.astro';
     flex-wrap: wrap;
     gap: 2.5rem;
     padding-top: 1.5rem;
-    border-top: 1px solid rgba(26, 23, 20, 0.12);
+    border-top: 1px solid var(--border);
   }
 
   .stat {
@@ -125,7 +125,7 @@ import Map from './Map.astro';
     font-size: 1.75rem;
     line-height: 1;
     letter-spacing: -0.02em;
-    color: #1a1714;
+    color: var(--dark);
   }
 
   .stat-label {
@@ -133,7 +133,7 @@ import Map from './Map.astro';
     font-size: 0.55rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #5a544a;
+    color: var(--text);
   }
 
   @media (min-width: 768px) {

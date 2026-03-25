@@ -44,7 +44,7 @@ const { waLink } = Astro.props;
     left: 0;
     right: 0;
     z-index: 100;
-    background: #efe9df;
+    background: var(--bg-warm);
     transition: background 0.4s ease;
   }
 
@@ -52,7 +52,7 @@ const { waLink } = Astro.props;
     background: rgba(239, 233, 223, 0.95);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 1px 0 rgba(26, 23, 20, 0.08);
+    box-shadow: 0 1px 0 var(--border-subtle);
   }
 
   .nav-inner {
@@ -71,11 +71,11 @@ const { waLink } = Astro.props;
     font-weight: 700;
     font-size: 1.2rem;
     letter-spacing: -0.02em;
-    color: #1a1714;
+    color: var(--dark);
   }
 
   .wordmark-icon {
-    color: #1a1714;
+    color: var(--dark);
   }
 
   .nav-toggle {
@@ -92,7 +92,7 @@ const { waLink } = Astro.props;
   .nav-toggle span {
     width: 1.35rem;
     height: 2px;
-    background: #1a1714;
+    background: var(--dark);
   }
 
   .nav-links {
@@ -104,7 +104,7 @@ const { waLink } = Astro.props;
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    border: 1px solid rgba(26, 23, 20, 0.1);
+    border: 1px solid var(--border);
     border-radius: 0.75rem;
     box-shadow: 0 18px 36px rgba(26, 23, 20, 0.12);
     transform: translateY(-8px);
@@ -129,7 +129,7 @@ const { waLink } = Astro.props;
 
   .nav-links a:hover,
   .nav-links a:focus-visible {
-    color: #1a1714;
+    color: var(--dark);
   }
 
   .nav-social {
@@ -137,7 +137,7 @@ const { waLink } = Astro.props;
     gap: 0.5rem;
     margin-top: 0.5rem;
     padding-top: 0.75rem;
-    border-top: 1px solid rgba(26, 23, 20, 0.1);
+    border-top: 1px solid var(--border);
   }
 
   .nav-icon {
@@ -147,12 +147,12 @@ const { waLink } = Astro.props;
     width: 2.25rem;
     height: 2.25rem;
     border-radius: 50%;
-    background: #2a5c1a;
-    color: #efe9df;
+    background: var(--forest);
+    color: var(--bg-warm);
   }
 
   .nav-icon:hover {
-    background: #3d7a22;
+    background: var(--forest-2);
   }
 
   @media (min-width: 768px) {
@@ -196,7 +196,7 @@ const { waLink } = Astro.props;
       padding-left: 0.75rem;
       margin-left: 0.5rem;
       border-top: 0;
-      border-left: 1px solid rgba(26, 23, 20, 0.12);
+      border-left: 1px solid var(--border);
     }
   }
 </style>

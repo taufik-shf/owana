@@ -1,5 +1,21 @@
 /* Tokens */
 :root {
+  /* Dark warm palette */
+  --dark: #1a1714;
+  --dark-hover: #2d2822;
+  --text: #5a544a;
+  --text-muted: #8a8278;
+
+  /* Backgrounds */
+  --bg-warm: #efe9df;
+  --bg-card: #e3ddd3;
+  --bg-map: #d9d1c5;
+
+  /* Borders */
+  --border-subtle: rgba(26, 23, 20, 0.08);
+  --border: rgba(26, 23, 20, 0.12);
+
+  /* Legacy palette */
   --ink: #1c1c18;
   --forest: #2a5c1a;
   --forest-2: #3d7a22;
@@ -52,11 +68,8 @@ body {
 
 body {
   font-family: var(--font-sans);
-  background:
-    radial-gradient(circle at 90% 8%, rgba(111, 168, 47, 0.14), transparent 28%),
-    radial-gradient(circle at 8% 32%, rgba(139, 74, 42, 0.1), transparent 30%),
-    var(--cream);
-  color: var(--ink);
+  background: var(--bg-warm);
+  color: var(--dark);
   line-height: 1.6;
 
   &.menu-open {
