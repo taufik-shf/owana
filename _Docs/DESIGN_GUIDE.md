@@ -6,7 +6,7 @@ Local. Warm. Honest. No corporate polish - we're locals sharing our home.
 
 **Voice**: Direct, curious, slightly dry humor. We're still learning.
 **Never**: "breathtaking", "pristine", "untouched paradise", "sustainability"
-**Always**: "Go Deeper. Go Wana.", "Nobody talks about this place. We live here."
+**Always**: "Go Deeper. Go Wana."
 
 ## CSS Variables
 
@@ -51,6 +51,37 @@ Local. Warm. Honest. No corporate polish - we're locals sharing our home.
 
 ## Breakpoints
 
-| Mobile | Desktop |
-|--------|---------|
-| `< 768px` | `> 768px` |
+Desktop-first approach. Base styles target desktop (1024px+). Use `max-width` for smaller screens.
+
+| Breakpoint | Target |
+|------------|--------|
+| Base | Desktop 1024px+ |
+| `max-width: 1023px` | Tablet landscape |
+| `max-width: 768px` | Tablet / Large mobile |
+| `max-width: 639px` | Mobile |
+
+## CSS Approach
+
+**Desktop-first methodology:**
+```scss
+// Base styles (desktop)
+.component {
+  display: grid;
+  grid-template-columns: 1fr 1fr; // 2-column layout
+}
+
+// Tablet and below
+@media (max-width: 768px) {
+  .component {
+    grid-template-columns: 1fr; // Single column
+  }
+}
+
+// Mobile
+@media (max-width: 639px) {
+  .component {
+    padding: 2rem;
+  }
+}
+```
+

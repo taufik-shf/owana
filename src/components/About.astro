@@ -42,7 +42,8 @@ import Map from './Map.astro';
 
   .about-grid {
     display: grid;
-    gap: 3rem;
+    grid-template-columns: 1fr 1.45fr;
+    gap: 4.5rem;
     align-items: center;
   }
 
@@ -136,11 +137,10 @@ import Map from './Map.astro';
     color: var(--text);
   }
 
-  @media (min-width: 768px) {
+  @media (max-width: 768px) {
     .about-grid {
-      grid-template-columns: 1fr 1.45fr;
-      gap: 4.5rem;
-      align-items: center;
+      grid-template-columns: 1fr;
+      gap: 3rem;
     }
   }
 </style>

@@ -107,13 +107,17 @@
   /* Spread layout */
   .why-spread {
     display: grid;
-    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
   }
 
   /* Story panel */
   .why-story {
     display: grid;
     gap: 1.5rem;
+    position: sticky;
+    top: 6rem;
   }
 
   .story-image-wrap {
@@ -189,9 +193,9 @@
 
   .reason {
     display: grid;
-    grid-template-columns: 3.5rem 1fr;
-    gap: 1.25rem;
-    padding: 1.5rem 0;
+    grid-template-columns: 4rem 1fr;
+    gap: 1.5rem;
+    padding: 1.75rem 0;
     border-bottom: 1px solid var(--border-subtle);
     transition: background 0.25s ease, filter 0.25s ease;
   }
@@ -212,7 +216,7 @@
 
   .reason-num {
     font-family: var(--font-mono);
-    font-size: 2.5rem;
+    font-size: 2.75rem;
     font-weight: 700;
     line-height: 1;
     color: var(--light);
@@ -232,7 +236,7 @@
     letter-spacing: -0.01em;
     color: var(--dark);
     margin: 0 0 0.4rem 0;
-    padding-top: 0.35rem;
+    padding-top: 0.25rem;
     transition: color 0.2s ease;
   }
 
@@ -248,46 +252,10 @@
     margin: 0;
   }
 
-  /* Tablet */
-  @media (min-width: 768px) {
-    .why-spread {
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
-
-    .why-story {
-      position: sticky;
-      top: 6rem;
-    }
-
-    .story-image-wrap img {
-      aspect-ratio: 2 / 1;
-    }
-
-    .reason {
-      grid-template-columns: 4rem 1fr;
-      padding: 1.75rem 0;
-      gap: 1.5rem;
-    }
-
-    .reason-num {
-      font-size: 2.75rem;
-    }
-
-    .reason-text h3 {
-      padding-top: 0.25rem;
-    }
-  }
-
   /* Large */
   @media (min-width: 1024px) {
     .why-us {
       padding: 6rem 0 7rem;
-    }
-
-    .why-spread {
-      gap: 4rem;
     }
 
     .reason {
@@ -296,6 +264,36 @@
 
     .reason-num {
       font-size: 3rem;
+    }
+  }
+
+  /* Tablet */
+  @media (max-width: 768px) {
+    .why-spread {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .why-story {
+      position: static;
+    }
+
+    .story-image-wrap img {
+      aspect-ratio: 2 / 1;
+    }
+
+    .reason {
+      grid-template-columns: 3.5rem 1fr;
+      padding: 1.5rem 0;
+      gap: 1.25rem;
+    }
+
+    .reason-num {
+      font-size: 2.5rem;
+    }
+
+    .reason-text h3 {
+      padding-top: 0.35rem;
     }
   }
 

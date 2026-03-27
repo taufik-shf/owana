@@ -2,7 +2,6 @@
 
 ## Build Commands
 ```bash
-bun run dev          # Start dev server
 bun run build        # Build for production
 bun run preview      # Preview production build
 ```
@@ -12,7 +11,6 @@ No lint/test scripts; use Astro VSCode extension.
 Local tour in Sulawesi Tengah. Small groups, off-itinerary. Not corporate.
 **Voice**: Honest, curious, local. Dry wit. We're still learning.
 **Never**: "breathtaking", "pristine", "untouched paradise", "sustainability"
-**Always**: "Go Deeper. Go Wana.", "Nobody talks about this place. We live here."
 
 ## Design Tokens
 ```scss
@@ -42,7 +40,7 @@ Fonts: Inter 800 (headlines), Inter 400 (body), Space Mono (labels)
 ## Testing & Validation
 - No test suite; add with Vitest (`astro/testing`): `npx vitest run path/to/test.ts`
 - Build must succeed: `bun run build`
-- Manual checks: responsive design, hover/focus, WhatsApp button
+- Manual checks: responsive design, hover/focus
 
 ## Git Conventions
 - Conventional commits: `feat:`, `fix:`, `docs:`, `refactor:`
@@ -53,10 +51,8 @@ Fonts: Inter 800 (headlines), Inter 400 (body), Space Mono (labels)
 2. Preserve code style (2 spaces, single quotes, PascalCase).
 3. Maintain semantic HTML and accessibility.
 4. Use design tokens for colors and fonts.
-5. Test manually in dev server (`bun run dev`).
-6. Update brand voice if adding copy.
-7. Keep dependencies minimal (Astro + sass-embedded only).
-8. Check TypeScript strictness; props must have explicit interfaces.
+5. Keep dependencies minimal (Astro + sass-embedded only).
+6. Check TypeScript strictness; props must have explicit interfaces.
 
 ## Project Structure
 ```

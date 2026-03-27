@@ -49,14 +49,15 @@ const { waLink } = Astro.props;
 
   .cta-layout {
     display: grid;
-    gap: 4rem;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: center;
   }
 
-  @media (min-width: 768px) {
+  @media (max-width: 639px) {
     .cta-layout {
-      grid-template-columns: 1.2fr 1fr;
-      gap: 5rem;
-      align-items: center;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
     }
   }
 
@@ -165,10 +166,6 @@ const { waLink } = Astro.props;
   @media (max-width: 639px) {
     .final-cta {
       padding: 4rem 0 4.5rem;
-    }
-
-    .cta-layout {
-      gap: 2.5rem;
     }
 
     .cta-aside {

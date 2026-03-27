@@ -69,14 +69,15 @@ const getImage = (index: number) => packageImages[index % packageImages.length];
 
   .packages-layout {
     display: grid;
-    gap: 4rem;
+    grid-template-columns: 380px 1fr;
+    gap: 5rem;
+    align-items: start;
   }
 
-  @media (min-width: 1024px) {
+  @media (max-width: 1023px) {
     .packages-layout {
-      grid-template-columns: 380px 1fr;
-      gap: 5rem;
-      align-items: start;
+      grid-template-columns: 1fr;
+      gap: 4rem;
     }
   }
 
@@ -153,22 +154,25 @@ const getImage = (index: number) => packageImages[index % packageImages.length];
 
   .packages-grid {
     display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
 
-  @media (min-width: 640px) {
-    .packages-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    :global(.card--featured) {
-      grid-column: 1 / -1;
-    }
+  :global(.card--featured) {
+    grid-column: 1 / -1;
   }
 
   @media (max-width: 639px) {
     .packages {
       padding: 4rem 0 5rem;
+    }
+
+    .packages-grid {
+      grid-template-columns: 1fr;
+    }
+
+    :global(.card--featured) {
+      grid-column: 1;
     }
   }
 </style>
