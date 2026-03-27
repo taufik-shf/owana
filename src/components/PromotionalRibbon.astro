@@ -1,0 +1,151 @@
+---
+interface Props {
+  enabled?: boolean;
+  info: string;
+  cta: string;
+  link?: string;
+  background?: string;
+  color?: string;
+}
+
+const {
+  enabled = true,
+  info,
+  cta,
+  link,
+  background = 'var(--lime)',
+  color = 'var(--ink)'
+} = Astro.props;
+
+if (!enabled) return null;
+---
+
+{enabled && (
+  <div class="promo-ribbon" style={`background: ${background}; color: ${color};`}>
+    <div class="wrap ribbon-inner">
+      <span class="ribbon-content">
+        <span class="ribbon-info">{info}</span>
+        {link ? (
+          <a href={link} class="ribbon-cta" target="_blank" rel="noreferrer">
+            {cta}
+          </a>
+        ) : (
+          <span class="ribbon-cta">{cta}</span>
+        )}
+      </span>
+      <button class="ribbon-close" type="button" aria-label="Close promotional ribbon">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+)}
+
+<style>
+  @keyframes slide-down {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .promo-ribbon {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    padding: 0.6rem 0;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.4;
+    opacity: 0;
+    animation: slide-down 0.4s ease 0.8s forwards;
+  }
+
+  .ribbon-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+  }
+
+  .ribbon-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    flex: 1;
+  }
+
+  .ribbon-info {
+    /* default text styles */
+  }
+
+  .ribbon-cta {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    font-weight: 700;
+    transition: opacity 0.2s ease;
+  }
+
+  .ribbon-cta:hover {
+    opacity: 0.85;
+  }
+
+  .ribbon-close {
+    background: transparent;
+    border: none;
+    color: inherit;
+    padding: 0.25rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease;
+  }
+
+  .ribbon-close:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .ribbon-close:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  .promo-ribbon.is-hidden {
+    display: none;
+  }
+
+  :global(body.has-ribbon) {
+    padding-top: var(--ribbon-height, 0px);
+  }
+
+  :global(body.has-ribbon.is-hidden) {
+    padding-top: 0;
+  }
+</style>
+
+<script>
+  const ribbon = document.querySelector('.promo-ribbon');
+  const closeBtn = document.querySelector('.ribbon-close');
+
+  if (ribbon && closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      ribbon.classList.add('is-hidden');
+      document.body.classList.remove('has-ribbon');
+      document.body.style.setProperty('--ribbon-height', '0px');
+    });
+  }
+</script>

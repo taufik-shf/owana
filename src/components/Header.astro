@@ -40,7 +40,7 @@ const { waLink } = Astro.props;
 <style>
   .site-header {
     position: fixed;
-    top: 0;
+    top: var(--ribbon-height, 0px);
     left: 0;
     right: 0;
     z-index: 100;

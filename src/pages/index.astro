@@ -11,6 +11,15 @@ import Footer from '../components/Footer.astro';
 
 const waLink = 'https://wa.me/6282198083022';
 
+const promotion = {
+	enabled: true,
+	info: 'Currently guiding for Free:',
+	cta: 'Book a tour now!',
+	link: waLink,
+	background: 'var(--lime)',
+	color: 'var(--ink)'
+};
+
 const packageRows = [
 	{
 		title: 'Lore Lindu Expedition',
@@ -154,7 +163,7 @@ const destinationTeaser = [
 ];
 ---
 
-<Layout>
+<Layout promotion={promotion}>
   <Header waLink={waLink} />
   <Hero waLink={waLink} />
   <About />

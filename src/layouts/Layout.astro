@@ -1,11 +1,26 @@
 ---
 import '../styles/global.scss';
+import PromotionalRibbon from '../components/PromotionalRibbon.astro';
 
 interface Props {
   title?: string;
+  promotion?: {
+    enabled?: boolean;
+    info: string;
+    cta: string;
+    link?: string;
+    background?: string;
+    color?: string;
+  };
 }
 
-const { title = 'GOWANA | Sulawesi Tengah, Indonesia' } = Astro.props;
+const {
+  title = 'GOWANA | Sulawesi Tengah, Indonesia',
+  promotion = { enabled: false, info: '', cta: '' }
+} = Astro.props;
+
+const ribbonHeight = promotion.enabled ? '2.2rem' : '0px';
+const bodyClass = promotion.enabled ? 'has-ribbon' : '';
 ---
 
 <!doctype html>
@@ -31,8 +46,24 @@ const { title = 'GOWANA | Sulawesi Tengah, Indonesia' } = Astro.props;
     <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
     <title>{title}</title>
   </head>
-  <body>
+  <body class={bodyClass} style={`--ribbon-height: ${ribbonHeight};`}>
+    <PromotionalRibbon {...promotion} />
     <slot />
+    <script>
+      // Update ribbon height after render and on resize
+      const ribbon = document.querySelector('.promo-ribbon');
+      const updateRibbonHeight = () => {
+        if (!ribbon) return;
+        if (ribbon.classList.contains('is-hidden')) {
+          document.body.style.setProperty('--ribbon-height', '0px');
+        } else {
+          const height = ribbon.getBoundingClientRect().height;
+          document.body.style.setProperty('--ribbon-height', `${height}px`);
+        }
+      };
+      updateRibbonHeight();
+      window.addEventListener('resize', updateRibbonHeight);
+    </script>
     <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
   </body>
 </html>
