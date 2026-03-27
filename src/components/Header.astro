@@ -1,4 +1,6 @@
 ---
+import logo from '../assets/logo.png';
+
 interface Props {
   waLink: string;
 }
@@ -9,10 +11,7 @@ const { waLink } = Astro.props;
 <header class="site-header">
   <div class="wrap nav-inner">
     <a href="#top" class="wordmark" aria-label="GOWANA home">
-      <svg class="wordmark-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <circle cx="12" cy="12" r="10" />
-      </svg>
-      <span>Gowana</span>
+      <img src={logo.src} alt="Gowana" class="wordmark-logo" width="120" height="auto" />
     </a>
 
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation">
@@ -57,7 +56,7 @@ const { waLink } = Astro.props;
 
   .nav-inner {
     display: flex;
-    align-items: center;
+    align-items: end;
     justify-content: space-between;
     min-height: 4.25rem;
     gap: 1rem;
@@ -74,8 +73,10 @@ const { waLink } = Astro.props;
     color: var(--dark);
   }
 
-  .wordmark-icon {
-    color: var(--dark);
+  .wordmark-logo {
+    height: 120px;
+    width: auto;
+    object-fit: contain;
   }
 
   .nav-toggle {
@@ -177,6 +178,7 @@ const { waLink } = Astro.props;
       flex-direction: row;
       align-items: center;
       gap: 0.25rem;
+      padding-bottom: 1rem;
     }
 
     .nav-links a {
