@@ -1,5 +1,6 @@
 ---
 import heroImage from '../assets/home/hero.jpg';
+import LocationOverlay from './LocationOverlay.astro';
 
 interface Props {
   waLink: string;
@@ -14,20 +15,20 @@ const { waLink } = Astro.props;
       <div class="hero-content">
         <div class="hero-left">
           <h1 class="hero-title">
-            We'll Guide<br />
-            <span class="hero-title-accent">You for Free.</span>
+            Your <span class="hero-title-accent">Amateur</span><br />
+            Guide to Central Sulawesi
           </h1>
         </div>
         <div class="hero-right">
-          <p class="hero-sub">
-            First year operating.
+          <p>
+          Central Sulawesi has megalithic stones archaeologists still can't explain, 
+          forest with species found nowhere else, and islands so remote the marine life is mostly untouched.
           </p>
-          <p class="hero-sub">
-           Pay only for your personal expenses. 
+
+          <p>
+          Come explore it with us!!
           </p>
-          <p class="hero-sub">
-            Limited period only.
-          </p>
+          
           <a class="hero-cta" href={waLink} target="_blank" rel="noreferrer">
             <span>Book a tour</span>
             <svg class="hero-cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -38,7 +39,14 @@ const { waLink } = Astro.props;
       </div>
       
       <div class="hero-images">
-        <img class="hero-image" src={heroImage.src} alt="Sulawesi Tengah landscapes" loading="eager" />
+        <div class="hero-image-wrapper">
+          <img class="hero-image" src={heroImage.src} alt="Paisupok Lake, Central Sulawesi" loading="eager" />
+          <LocationOverlay
+            name="PAISUPOK LAKE"
+            coords="-1.2112° N, 122.9809° E"
+            warning="WARNING: Visibility exceptional. Depth perception may be compromised in clear waters."
+          />
+        </div>
       </div>
     </div>
   </section>
@@ -50,13 +58,11 @@ const { waLink } = Astro.props;
     margin: 0;
     background: var(--bg-warm);
     position: relative;
-    min-height: 100vh;
   }
 
   .hero {
     position: relative;
     width: 100%;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     color: var(--dark);
@@ -68,18 +74,16 @@ const { waLink } = Astro.props;
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding-top: 6rem;
+    padding-top: 8rem;
     padding-bottom: 3rem;
-    gap: 3rem;
   }
 
   .hero-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
-    align-items: end;
     animation: fadeUp 0.6s ease-out;
-    padding-top: 7rem;
+    padding-top: 4rem;
   }
 
   .hero-left {
@@ -90,14 +94,17 @@ const { waLink } = Astro.props;
   .hero-right {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     align-items: flex-end;
+    justify-content: space-between;
     text-align: right;
     gap: 0.5rem;
+    padding-top: 1rem;
   }
 
   .hero-title {
     font-family: var(--font-sans);
-    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-size: clamp(3rem, 5vw, 3.5rem);
     font-weight: 800;
     line-height: 1.02;
     letter-spacing: -0.04em;
@@ -112,7 +119,7 @@ const { waLink } = Astro.props;
 
   .hero-sub {
     font-family: var(--font-sans);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 400;
     line-height: 1.65;
     color: var(--text);
@@ -150,14 +157,31 @@ const { waLink } = Astro.props;
   .hero-images {
     display: flex;
     justify-content: center;
+    padding-top: 2rem;
+  }
+
+  .hero-image-wrapper {
+    position: relative;
+    width: 100%;
   }
 
   .hero-image {
     width: 100%;
-    aspect-ratio: 16 / 6;
+    aspect-ratio: 16 / 3;
     object-fit: cover;
     display: block;
     border-radius: 1.5rem;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @media (max-width: 768px) {
