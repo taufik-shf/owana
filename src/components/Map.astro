@@ -1,22 +1,33 @@
 ---
+import geojson from '../assets/Sulawesi-tengah-polygon.json';
+
+interface Props {
+  locations?: Array<{
+    name: string;
+    coords: [number, number];
+    desc: string;
+  }>;
+  zoom?: number;
+  title?: string;
+  coords?: string;
+}
+
+const { 
+  locations = [], 
+  zoom = 5.5, 
+  title = 'Map of Central Sulawesi',
+  coords = '0°32\'S 121°35\'E'
+} = Astro.props;
+
 ---
 
 <div class="map-card">
   <div class="map-header">
-    <span class="map-header-title">Peta Wilayah - Sulawesi Tengah</span>
-    <span class="map-header-coords">0°32'S 121°35'E</span>
+    <span class="map-header-title">{title}</span>
+    <span class="map-header-coords">{coords}</span>
   </div>
-  <div class="map-body"><div id="sulawesi-map" aria-label="Map of Sulawesi Tengah locations"></div></div>
-  <div class="map-footer">
-    <div class="map-legend-item">
-      <div class="map-legend-dot is-capital"></div>
-      Capital
-    </div>
-    <div class="map-legend-item">
-      <div class="map-legend-dot is-city"></div>
-      City
-    </div>
-  </div>
+  <div class="map-body"><div id="sulawesi-map" aria-label={`Map of ${title}`}></div></div>
+
 </div>
 
 <style>
@@ -87,41 +98,7 @@
     display: none !important;
   }
 
-  .map-footer {
-    padding: 0.75rem 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-    border-top: 1px solid rgba(26, 23, 20, 0.08);
-    flex-wrap: wrap;
-    background: #efe9df;
-  }
 
-  .map-legend-item {
-    display: flex;
-    align-items: center;
-    gap: 0.44rem;
-    font-family: var(--font-mono);
-    font-size: 0.52rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #5a544a;
-  }
-
-  .map-legend-dot {
-    width: 0.58rem;
-    height: 0.58rem;
-    border-radius: 999px;
-    flex-shrink: 0;
-  }
-
-  .map-legend-dot.is-capital {
-    background: #2a5c1a;
-  }
-
-  .map-legend-dot.is-city {
-    background: #6fa82f;
-  }
 
   @media (max-width: 960px) {
     #sulawesi-map {
@@ -130,7 +107,7 @@
   }
 </style>
 
-<script is:inline>
+<script define:vars={{ geojson, locations, zoom }}>
   document.addEventListener('DOMContentLoaded', () => {
     function initMap() {
       const mapTarget = document.getElementById('sulawesi-map');
@@ -148,6 +125,10 @@
               ],
               tileSize: 256,
               attribution: '&copy; <a href="https://carto.com/">CARTO</a>'
+            },
+            'sulawesi-polygon': {
+              type: 'geojson',
+              data: geojson
             }
           },
           layers: [
@@ -157,11 +138,30 @@
               source: 'raster-tiles',
               minzoom: 0,
               maxzoom: 22
+            },
+            {
+              id: 'sulawesi-polygon-fill',
+              type: 'fill',
+              source: 'sulawesi-polygon',
+              paint: {
+                'fill-color': '#6fa82f',
+                'fill-opacity': 0.15
+              }
+            },
+            {
+              id: 'sulawesi-polygon-outline',
+              type: 'line',
+              source: 'sulawesi-polygon',
+              paint: {
+                'line-color': '#2a5c1a',
+                'line-width': 1.5,
+                'line-opacity': 0.8
+              }
             }
           ]
         },
         center: [121.2, -0.95],
-        zoom: 6.5,
+        zoom: zoom,
         minZoom: 5,
         maxZoom: 14,
         attributionControl: false
@@ -169,41 +169,13 @@
 
       map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
 
-      const locations = [
-        {
-          name: 'Palu',
-          coords: [119.8707, -0.8917],
-          type: 'capital',
-          desc: 'Provincial capital of Sulawesi Tengah'
-        },
-        {
-          name: 'Donggala',
-          coords: [119.7442, -0.6833],
-          type: 'city',
-          desc: 'West coast routes and sea nomad communities'
-        },
-        {
-          name: 'Poso',
-          coords: [120.7558, -1.3967],
-          type: 'city',
-          desc: 'Highland lakes and Wana territory gateways'
-        },
-        {
-          name: 'Luwuk',
-          coords: [122.7925, -0.9425],
-          type: 'city',
-          desc: 'Banggai access point for island and coast runs'
-        }
-      ];
 
-      const markerCfg = {
-        capital: { color: '#2A5C1A', border: '#A8D060', size: 16 },
-        city: { color: '#6FA82F', border: '#FAF7F2', size: 12 }
-      };
+
+      const pointCfg = { color: '#2A5C1A', border: '#A8D060', size: 16 };
 
       map.on('load', () => {
         locations.forEach((loc) => {
-          const cfg = markerCfg[loc.type];
+          const cfg = pointCfg;
 
           const wrap = document.createElement('div');
           wrap.style.cssText = `
