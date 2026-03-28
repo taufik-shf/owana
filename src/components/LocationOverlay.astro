@@ -9,41 +9,31 @@ const { name, coords, warning } = Astro.props;
 ---
 
 <div class="location-overlay">
-  <div class="hud-corner hud-corner-tl"></div>
-  <div class="hud-corner hud-corner-tr"></div>
-  <div class="hud-corner hud-corner-bl"></div>
-  <div class="hud-corner hud-corner-br"></div>
-  
-  <div class="hud-scanlines"></div>
-  
-  <div class="location-info">
-    <div class="location-header">
-      <div class="location-status">
-        <span class="status-dot"></span>
+  <div class="label-border">
+    <div class="label-inner">
+      <div class="location-header">
+        <span class="location-tag">LOC.</span>
         <span class="status-text">DISCOVERED</span>
       </div>
-      <span class="location-tag">LOC</span>
-    </div>
-    
-    <div class="location-main">
-      <svg class="location-pin" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path fill="none" stroke="currentColor" stroke-width="1.5" d="M12,10 C14.209139,10 16,8.209139 16,6 C16,3.790861 14.209139,2 12,2 C9.790861,2 8,3.790861 8,6 C8,8.209139 9.790861,10 12,10 Z M12,10 L12,22"/>
-      </svg>
-      <span class="location-name">{name}</span>
-    </div>
-    
-    <div class="location-coords">
-      <span class="coord-label">COORDS</span>
-      <span class="coord-value">{coords}</span>
-    </div>
-    
-    <div class="location-divider"></div>
-    
-    <div class="location-warning">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
-      </svg>
-      <span>{warning}</span>
+      
+      <div class="location-main">
+        <svg class="location-pin" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path fill="none" stroke="currentColor" stroke-width="1.5" d="M12,10 C14.209139,10 16,8.209139 16,6 C16,3.790861 14.209139,2 12,2 C9.790861,2 8,3.790861 8,6 C8,8.209139 9.790861,10 12,10 Z M12,10 L12,22"/>
+        </svg>
+        <span class="location-name">{name}</span>
+      </div>
+      
+      <div class="location-divider"></div>
+      
+      <div class="location-coords">
+        <span class="coord-label">COORDS</span>
+        <span class="coord-value">{coords}</span>
+      </div>
+      
+      <div class="location-warning">
+        <span class="warning-icon">!</span>
+        <span>{warning}</span>
+      </div>
     </div>
   </div>
 </div>
@@ -54,179 +44,134 @@ const { name, coords, warning } = Astro.props;
     bottom: 1.25rem;
     left: 1.25rem;
     width: max-content;
-    max-width: 280px;
-    background: rgba(26, 23, 20, 0.7);
-    backdrop-filter: blur(2px);
-    padding: 0.65rem 0.85rem;
-    animation: hudReveal 0.6s ease-out;
-    overflow: hidden;
+    max-width: 260px;
+    animation: fadeReveal 0.5s ease-out;
   }
 
-  .hud-corner {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    pointer-events: none;
+  .label-border {
+    padding: 0;
   }
 
-  .hud-corner-tl {
-    top: 0;
-    left: 0;
-    border-top: 1px solid rgba(111, 168, 47, 0.5);
-    border-left: 1px solid rgba(111, 168, 47, 0.5);
-  }
-
-  .hud-corner-tr {
-    top: 0;
-    right: 0;
-    border-top: 1px solid rgba(111, 168, 47, 0.5);
-    border-right: 1px solid rgba(111, 168, 47, 0.5);
-  }
-
-  .hud-corner-bl {
-    bottom: 0;
-    left: 0;
-    border-bottom: 1px solid rgba(111, 168, 47, 0.5);
-    border-left: 1px solid rgba(111, 168, 47, 0.5);
-  }
-
-  .hud-corner-br {
-    bottom: 0;
-    right: 0;
-    border-bottom: 1px solid rgba(111, 168, 47, 0.5);
-    border-right: 1px solid rgba(111, 168, 47, 0.5);
-  }
-
-  .hud-scanlines {
-    display: none;
-  }
-
-  .location-info {
-    position: relative;
-    z-index: 1;
+  .label-inner {
+    background: rgba(26, 23, 20, 0.5);
+    padding: 0.5rem 0.65rem;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.3rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .location-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  .location-status {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  .status-dot {
-    width: 5px;
-    height: 5px;
-    background: rgba(111, 168, 47, 0.7);
-    border-radius: 50%;
-    animation: pulse 3s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.7; }
-    50% { opacity: 0.3; }
+  .location-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.2em;
   }
 
   .status-text {
     font-family: var(--font-mono);
     font-size: 0.45rem;
-    font-weight: 600;
-    color: rgba(111, 168, 47, 0.7);
-    letter-spacing: 0.15em;
-  }
-
-  .location-tag {
-    font-family: var(--font-mono);
-    font-size: 0.5rem;
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
-    padding: 0.15rem 0.4rem;
-    border: 1px solid rgba(90, 84, 74, 0.5);
-    background: rgba(90, 84, 74, 0.2);
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 
   .location-main {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
+    padding: 0.2rem 0;
   }
 
   .location-pin {
     flex-shrink: 0;
-    color: rgba(111, 168, 47, 0.6);
+    color: rgba(255, 255, 255, 0.5);
   }
 
   .location-name {
     font-family: var(--font-mono);
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.85);
-    letter-spacing: 0.06em;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .location-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0.15rem 0;
   }
 
   .location-coords {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    padding-left: 0.1rem;
+    gap: 0.5rem;
+    padding: 0.1rem 0;
   }
 
   .coord-label {
     font-family: var(--font-mono);
     font-size: 0.4rem;
-    color: rgba(111, 168, 47, 0.5);
+    color: rgba(255, 255, 255, 0.45);
     letter-spacing: 0.15em;
   }
 
   .coord-value {
     font-family: var(--font-mono);
     font-size: 0.55rem;
-    color: rgba(255, 255, 255, 0.55);
-    letter-spacing: 0.04em;
-  }
-
-  .location-divider {
-    height: 1px;
-    background: linear-gradient(90deg, rgba(111, 168, 47, 0.4) 0%, rgba(111, 168, 47, 0.15) 50%, transparent 100%);
-    margin: 0.2rem 0;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.05em;
   }
 
   .location-warning {
     display: flex;
     align-items: flex-start;
-    gap: 0.35rem;
+    gap: 0.3rem;
+    margin-top: 0.1rem;
   }
 
-  .location-warning svg {
+  .warning-icon {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    font-weight: 700;
+    color: var(--dark);
+    background: rgba(255, 255, 255, 0.65);
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
-    color: rgba(111, 168, 47, 0.5);
     margin-top: 0.05rem;
   }
 
-  .location-warning span {
+  .location-warning span:last-child {
     font-family: var(--font-mono);
-    font-size: 0.45rem;
-    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.5rem;
+    color: rgba(255, 255, 255, 0.55);
     letter-spacing: 0.02em;
-    line-height: 1.5;
+    line-height: 1.4;
   }
 
-  @keyframes hudReveal {
+  @keyframes fadeReveal {
     from {
       opacity: 0;
-      transform: translateY(8px) scale(0.98);
+      transform: translateY(6px);
     }
     to {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: translateY(0);
     }
   }
 
@@ -234,24 +179,22 @@ const { name, coords, warning } = Astro.props;
     .location-overlay {
       bottom: 0.75rem;
       left: 0.75rem;
-      max-width: 220px;
-      padding: 0.5rem 0.65rem;
+      max-width: 200px;
     }
 
-    .hud-corner {
-      width: 6px;
-      height: 6px;
+    .label-inner {
+      padding: 0.5rem 0.6rem;
     }
 
     .location-name {
-      font-size: 0.65rem;
+      font-size: 0.6rem;
     }
 
     .coord-value {
       font-size: 0.45rem;
     }
 
-    .location-warning span {
+    .location-warning span:last-child {
       font-size: 0.4rem;
     }
   }
