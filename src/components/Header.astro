@@ -15,25 +15,39 @@ const { waLink } = Astro.props;
       <img src={logo1x.src} srcset={`${logo1x.src} 1x, ${logo2x.src} 2x`} alt="Owana" class="wordmark-logo" width={logo1x.width} height={logo1x.height} />
     </a>
 
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <div class="nav-right">
+      <input type="checkbox" class="nav-checkbox" id="navi-toggle" aria-hidden="true">
 
-    <nav id="primary-nav" class="nav-links" aria-label="Primary navigation">
-      <a href="#destinations">Destinations</a>
-      <a href="#packages">Packages</a>
-      <a href="#about">About</a>
-      <a href="#conservation">Conservation</a>
-      <div class="nav-social">
-        <a href={waLink} class="nav-icon" target="_blank" rel="noreferrer" aria-label="WhatsApp">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      <label for="navi-toggle" class="nav-toggle" aria-label="Toggle navigation">
+        <span class="nav-icon-bar"></span>
+        <span class="nav-icon-bar"></span>
+        <span class="nav-icon-bar"></span>
+      </label>
+
+      <div class="nav-bg"></div>
+
+      <nav id="primary-nav" class="nav-links" aria-label="Primary navigation">
+        <button class="nav-close" type="button" aria-label="Close navigation">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
-        </a>
-      </div>
-    </nav>
+        </button>
+        <div class="nav-content">
+          <a href="#destinations">Destinations</a>
+          <a href="#packages">Packages</a>
+          <a href="#about">About</a>
+          <a href="#conservation">Conservation</a>
+          <div class="nav-social">
+            <a href={waLink} class="nav-icon" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
   </div>
 </header>
 
@@ -63,6 +77,11 @@ const { waLink } = Astro.props;
     gap: 1rem;
   }
 
+  .nav-right {
+    display: flex;
+    align-items: end;
+  }
+
   .wordmark {
     display: flex;
     align-items: center;
@@ -75,19 +94,20 @@ const { waLink } = Astro.props;
   }
 
   .wordmark-logo {
+    padding-top: 0.5rem;
     height: 90px;
     width: auto;
     object-fit: contain;
   }
 
+  .nav-checkbox,
+  .nav-bg,
   .nav-toggle {
     display: none;
   }
 
-  .nav-toggle span {
-    width: 1.35rem;
-    height: 2px;
-    background: var(--dark);
+  .nav-close {
+    display: none;
   }
 
   .nav-links {
@@ -101,6 +121,16 @@ const { waLink } = Astro.props;
     align-items: center;
     padding: 0;
     padding-bottom: 1rem;
+    gap: 0.25rem;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .nav-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     gap: 0.25rem;
   }
 
@@ -128,6 +158,7 @@ const { waLink } = Astro.props;
     margin-left: 0.5rem;
     border-top: 0;
     border-left: 1px solid var(--border);
+    width: auto;
   }
 
   .nav-icon {
@@ -146,52 +177,129 @@ const { waLink } = Astro.props;
   }
 
   @media (max-width: 768px) {
+    .site-header {
+      position: relative;
+    }
+
+    .nav-inner {
+      flex-wrap: wrap;
+      align-items: center;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .nav-right {
+      order: 2;
+      position: relative;
+    }
+
+    .nav-checkbox {
+      display: none;
+    }
+
     .nav-toggle {
-      display: inline-flex;
+      display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 0.22rem;
+      gap: 5px;
       padding: 0.35rem;
       border: 0;
       background: transparent;
       cursor: pointer;
+      z-index: 300;
+      position: relative;
+    }
+
+    .nav-icon-bar {
+      width: 1.35rem;
+      height: 2px;
+      background: var(--dark);
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+
+    .nav-checkbox:checked + .nav-toggle .nav-icon-bar:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .nav-checkbox:checked + .nav-toggle .nav-icon-bar:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .nav-checkbox:checked + .nav-toggle .nav-icon-bar:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-checkbox:checked ~ .nav-bg {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .nav-checkbox:checked ~ .nav-links {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .nav-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(26, 23, 20, 0.4);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 150;
     }
 
     .nav-links {
       position: absolute;
-      top: 4.4rem;
-      left: 0.75rem;
-      right: 0.75rem;
-      background: rgba(239, 233, 223, 0.98);
+      top: calc(100% + 0.5rem);
+      right: 0;
+      min-width: 250px;
+      background: var(--bg-warm);
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
       padding: 1rem;
-      border: 1px solid var(--border);
-      border-radius: 0.75rem;
-      box-shadow: 0 18px 36px rgba(26, 23, 20, 0.12);
-      transform: translateY(-8px);
       opacity: 0;
-      pointer-events: none;
-      transition: transform 0.25s ease;
-      gap: 0.95rem;
-      padding-bottom: 1rem;
+      visibility: hidden;
+      transform: translateY(-2rem);
+      transition: all 0.3s ease;
+      gap: 1rem;
+      z-index: 200;
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      box-shadow: 0 12px 24px rgba(26, 23, 20, 0.1);
     }
 
-    .nav-links.is-open {
-      transform: translateY(0);
-      opacity: 1;
-      pointer-events: auto;
+    .nav-close {
+      display: none;
+    }
+
+    .nav-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      width: 100%;
     }
 
     .nav-links a {
-      font-size: 0.9rem;
-      padding: 0;
+      font-size: 0.95rem;
+      padding: 0.5rem 0;
       border-radius: 0;
+      text-align: left;
+      width: 100%;
     }
 
     .nav-links a:hover,
     .nav-links a:focus-visible {
       background: transparent;
+      color: var(--forest);
     }
 
     .nav-social {
@@ -201,17 +309,19 @@ const { waLink } = Astro.props;
       margin-left: 0;
       border-top: 1px solid var(--border);
       border-left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
+
     .wordmark-logo {
-      height: 80px;
+      height: 70px;
     }
   }
 </style>
 
 <script>
   const header = document.querySelector('.site-header');
-  const toggle = document.querySelector('.nav-toggle');
-  const nav = document.querySelector('#primary-nav');
 
   const setScrollState = () => {
     if (window.scrollY > 20) {
@@ -224,17 +334,10 @@ const { waLink } = Astro.props;
   setScrollState();
   window.addEventListener('scroll', setScrollState, { passive: true });
 
-  toggle?.addEventListener('click', () => {
-    const isOpen = nav?.classList.toggle('is-open');
-    toggle.setAttribute('aria-expanded', String(isOpen));
-    document.body.classList.toggle('menu-open', Boolean(isOpen));
-  });
-
-  nav?.querySelectorAll('a').forEach((link) => {
+  document.querySelectorAll('.nav-links a').forEach((link) => {
     link.addEventListener('click', () => {
-      nav.classList.remove('is-open');
-      toggle?.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('menu-open');
+      const checkbox = document.querySelector('.nav-checkbox') as HTMLInputElement;
+      if (checkbox) checkbox.checked = false;
     });
   });
 </script>
