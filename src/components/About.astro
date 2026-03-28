@@ -199,15 +199,15 @@ const features: Feature[] = [
     color: var(--dark);
   }
 
-  /* ---- stats ---- */
-  .about-stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2.5rem;
-    padding: 1.5rem 0;
-    border-top: 1px solid var(--border);
-    margin-bottom: 2rem;
-  }
+/* ---- stats ---- */
+   .about-stats {
+     display: flex;
+     flex-wrap: nowrap;
+     gap: 2.5rem;
+     padding: 1.5rem 0;
+     border-top: 1px solid var(--border);
+     margin-bottom: 2rem;
+   }
 
   .stat {
     display: grid;
@@ -231,31 +231,32 @@ const features: Feature[] = [
     color: var(--text);
   }
 
-  /* ---- feature cards ---- */
-  .feature-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-  }
+   /* ---- feature cards ---- */
+   .feature-grid {
+     display: grid;
+     grid-template-columns: repeat(3, 1fr);
+     gap: 0.75rem;
+   }
 
-  /* ---- responsive ---- */
-  @media (max-width: 768px) {
-    .about-split {
-      grid-template-columns: 1fr;
-    }
+   /* ---- responsive ---- */
+   @media (max-width: 768px) {
+     .about-split {
+       grid-template-columns: 1fr;
+     }
 
-    .about-map {
-      position: static;
-    }
+     .about-map {
+       position: static;
+       height: 400px; /* Fixed height for map when in single column layout */
+     }
 
-    .feature-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
+     .feature-grid {
+       grid-template-columns: repeat(2, 1fr);
+     }
+   }
 
-  @media (max-width: 480px) {
-    .feature-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
+   @media (max-width: 480px) {
+     .feature-grid {
+       grid-template-columns: repeat(1, 1fr);
+     }
+   }
 </style>
