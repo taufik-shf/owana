@@ -1,0 +1,178 @@
+---
+interface Props {
+  icon: string;
+  title: string;
+  desc: string;
+}
+
+const { icon, title, desc } = Astro.props;
+---
+
+<div class="feature-card">
+  <div class="feature-front">
+    <span class="feature-icon" set:html={icon} />
+    <span class="feature-name">{title}</span>
+  </div>
+  <div class="feature-back">
+    <p class="feature-desc">{desc}</p>
+    <a href={`#${title.toLowerCase().replace(/\s+/g, '-')}`} class="feature-link">Read more</a>
+  </div>
+</div>
+
+<style>
+  .feature-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem 0.75rem;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1.5px solid var(--border);
+    border-radius: 0.875rem;
+    cursor: default;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.25s ease,
+      background 0.2s ease;
+    font-family: inherit;
+    text-align: center;
+    min-height: 130px;
+  }
+
+  .feature-card:hover {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: var(--dark);
+    box-shadow:
+      0 6px 24px rgba(26, 23, 20, 0.1),
+      0 2px 6px rgba(26, 23, 20, 0.06);
+  }
+
+  .feature-front,
+  .feature-back {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .feature-front {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .feature-back {
+    position: absolute;
+    inset: 0;
+    padding: 1rem;
+    opacity: 0;
+    transform: translateY(4px);
+    pointer-events: none;
+  }
+
+  .feature-card:hover .feature-front {
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+  }
+
+  .feature-card:hover .feature-back {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .feature-icon {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-warm);
+    border-radius: 0.5rem;
+    color: var(--dark);
+    flex-shrink: 0;
+  }
+
+  .feature-icon :global(svg) {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .feature-name {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--dark);
+    line-height: 1.3;
+  }
+
+  .feature-desc {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    line-height: 1.5;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .feature-link {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--forest);
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.15s;
+    margin-top: 0.25rem;
+    cursor: pointer;
+  }
+
+  .feature-link:hover {
+    opacity: 1;
+  }
+
+  /* mobile - always show description */
+  @media (max-width: 768px) {
+    .feature-card {
+      cursor: default;
+      align-items: stretch;
+      text-align: left;
+      min-height: auto;
+    }
+
+    .feature-front {
+      flex-direction: row;
+      align-items: center;
+      gap: 0.75rem;
+      justify-content: flex-start;
+    }
+
+    .feature-back {
+      position: static;
+      padding: 0.5rem 0 0;
+      opacity: 1;
+      pointer-events: auto;
+      align-items: flex-start;
+    }
+
+    .feature-card:hover .feature-front {
+      opacity: 1;
+    }
+
+    .feature-card:hover .feature-back {
+      opacity: 1;
+    }
+
+    .feature-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    .feature-name {
+      font-size: 0.65rem;
+    }
+  }
+</style>
