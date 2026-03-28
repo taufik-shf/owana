@@ -1,38 +1,146 @@
 ---
 import Map from './Map.astro';
+
+interface Feature {
+  icon: string;
+  title: string;
+  desc: string;
+}
+
+const features: Feature[] = [
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="10" r="0.5" fill="currentColor"/><circle cx="15" cy="10" r="0.5" fill="currentColor"/></svg>`,
+    title: 'Local Cuisine',
+    desc: 'Sinole, lapa-lapa, and mountain-grown spices. Every village has a recipe the guidebooks missed.'
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306"/></svg>`,
+    title: 'Endemic Wildlife',
+    desc: 'The tarsier\'s stare, the anoa in dense forest, the maleo burying eggs in volcanic sand. Species found nowhere else on Earth.'
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>`,
+    title: 'Volcanic Landscapes',
+    desc: 'Dramatic peaks, crater lakes, and geothermal springs. The land still shapes itself here.'
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>`,
+    title: 'Living Cultures',
+    desc: 'Toralu festivals, Datu ceremonies, and traditional houses built without a single nail. Culture here isn\'t a museum piece.'
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c2-3 5.5-5 10-5s8 2 10 5c-2 3-5.5 5-10 5s-8-2-10-5z"/><circle cx="12" cy="12" r="3"/></svg>`,
+    title: 'Pristine Waters',
+    desc: 'Lake Poso\'s still depths, Banggai\'s coral gardens, and rivers that cut through jungle nobody has mapped.'
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22h20"/><path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1 2.82-1.66c.63-.37 1.44-.23 1.92.34l.92 1.08a2 2 0 0 0 1.48.68H19"/><path d="M17 2 7 12"/><path d="m9.66 6.34 4.78-1.26c.6-.16 1.24.14 1.48.72l1.78 4.3a2 2 0 0 1-.2 1.84l-2.47 2.96c-.47.56-1.26.62-1.8.13L7.74 12.6a2 2 0 0 1-.13-1.8l1.28-2.86a2 2 0 0 1 1.62-1.12l.2-.02z"/></svg>`,
+    title: 'Traditional Crafts',
+    desc: 'Hand-woven silk, woodcarvings passed down generations, and boat-building techniques older than the port cities.'
+  }
+];
 ---
 
 <section id="about" class="section about">
-  <div class="wrap about-grid">
-    <div class="about-left">
-      <p class="mono-label">Discover</p>
-      <h2 class="about-title">Sulawesi<br /><em>Tengah</em></h2>
-      <p class="about-body">
-        We are local operators still learning every season, every road, and every crossing. From Poso highlands to
-        Banggai coastlines, we build routes around real conditions and real communities.
-      </p>
-      <blockquote class="about-tagline">"Sulawesi has been waiting.<br />So have we."</blockquote>
-      <div class="about-stats">
-        <div class="stat">
-          <span class="stat-num">13</span>
-          <span class="stat-label">Kabupaten / Kota</span>
+  <div class="wrap">
+
+    <p class="mono-label">Discover</p>
+    <h2 class="about-title">Central Sulawesi</h2>
+
+    <div class="about-split">
+      <div class="about-map">
+        <Map locations={[{ name: 'Palu', coords: [119.8707, -0.8917], desc: 'Provincial capital of Central Sulawesi' }]} />
+      </div>
+
+      <div class="about-content">
+        <p class="about-body">
+          We are local operators still learning every season, every road, and every crossing. From Poso highlands to
+          Banggai coastlines, we build routes around real conditions and real communities.
+        </p>
+        <blockquote class="about-tagline">
+          "Sulawesi has been waiting.<br />So have we."
+        </blockquote>
+
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-num">13</span>
+            <span class="stat-label">Kabupaten / Kota</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">68K</span>
+            <span class="stat-label">km² Area</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">3M+</span>
+            <span class="stat-label">Population</span>
+          </div>
         </div>
-        <div class="stat">
-          <span class="stat-num">68K</span>
-          <span class="stat-label">km² Area</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">3M+</span>
-          <span class="stat-label">Population</span>
+
+        <div class="feature-grid">
+          {features.map((f) => (
+            <div class="feature-card" data-open="false" role="button" tabindex="0" aria-expanded="false">
+              <span class="feature-icon" set:html={f.icon} />
+              <span class="feature-name">{f.title}</span>
+              <div class="feature-popup" role="region">
+                <h3 class="feature-popup-title">{f.title}</h3>
+                <p class="feature-popup-desc">{f.desc}</p>
+                <a href={`#${f.title.toLowerCase().replace(/\s+/g, '-')}`} class="feature-link">Read more</a>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
 
-    <aside class="about-right" aria-label="Sulawesi Tengah route notes">
-      <Map locations={[{ name: 'Palu', coords: [119.8707, -0.8917], desc: 'Provincial capital of Sulawesi Tengah' }]} />
-    </aside>
   </div>
 </section>
+
+<script>
+  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const cards = document.querySelectorAll<HTMLElement>('.feature-card');
+
+  function closeAll() {
+    cards.forEach((c) => {
+      c.dataset.open = 'false';
+      c.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  function open(card: HTMLElement) {
+    closeAll();
+    card.dataset.open = 'true';
+    card.setAttribute('aria-expanded', 'true');
+  }
+
+  cards.forEach((card) => {
+    if (isTouch) {
+      card.addEventListener('click', () => {
+        const isOpen = card.dataset.open === 'true';
+        closeAll();
+        if (!isOpen) open(card);
+      });
+    } else {
+      let timeout: ReturnType<typeof setTimeout>;
+
+      card.addEventListener('mouseenter', () => {
+        clearTimeout(timeout);
+        open(card);
+      });
+
+      card.addEventListener('mouseleave', () => {
+        timeout = setTimeout(closeAll, 150);
+      });
+
+      const popup = card.querySelector('.feature-popup');
+      if (popup) {
+        popup.addEventListener('mouseenter', () => clearTimeout(timeout));
+        popup.addEventListener('mouseleave', () => {
+          timeout = setTimeout(closeAll, 100);
+        });
+      }
+    }
+  });
+</script>
 
 <style>
   .about {
@@ -40,16 +148,7 @@ import Map from './Map.astro';
     padding: 5rem 0 6rem;
   }
 
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.45fr;
-    gap: 4.5rem;
-    align-items: center;
-  }
-
-  .about-left {
-    position: static;
-  }
+  /* ---- title ---- */
 
   .about .mono-label {
     font-family: var(--font-mono);
@@ -78,12 +177,42 @@ import Map from './Map.astro';
     line-height: 1.05;
     letter-spacing: -0.04em;
     color: var(--dark);
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
   }
 
-  .about-title em {
-    font-style: normal;
-    color: var(--dark);
+  .about-split {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    align-items: stretch;
+  }
+
+  .about-map {
+    position: sticky;
+    top: 6rem;
+    border-radius: 0.875rem;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    height: 100%;
+    display: flex;
+  }
+
+  .about-map :global(.map-card) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 0;
+    border: none;
+  }
+
+  .about-map :global(.map-body) {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .about-map :global(#sulawesi-map) {
+    height: 100%;
   }
 
   .about-body {
@@ -97,7 +226,7 @@ import Map from './Map.astro';
   }
 
   .about-tagline {
-    margin: 0 0 2rem;
+    margin: 0;
     padding-left: 1.25rem;
     border-left: 2px solid var(--dark);
     font-family: var(--font-sans);
@@ -107,12 +236,14 @@ import Map from './Map.astro';
     color: var(--dark);
   }
 
+  /* ---- stats ---- */
   .about-stats {
     display: flex;
     flex-wrap: wrap;
     gap: 2.5rem;
-    padding-top: 1.5rem;
+    padding: 1.5rem 0;
     border-top: 1px solid var(--border);
+    margin-bottom: 2rem;
   }
 
   .stat {
@@ -137,10 +268,186 @@ import Map from './Map.astro';
     color: var(--text);
   }
 
+  /* ---- feature cards ---- */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  .feature-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.25rem 0.75rem 0.85rem;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1.5px solid var(--border);
+    border-radius: 0.875rem;
+    cursor: pointer;
+    transition:
+      transform 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.25s ease,
+      background 0.2s ease;
+    font-family: inherit;
+    text-align: center;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.85);
+    border-color: var(--dark);
+    box-shadow:
+      0 6px 24px rgba(26, 23, 20, 0.1),
+      0 2px 6px rgba(26, 23, 20, 0.06);
+  }
+
+  .feature-card[data-open='true'] {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--dark);
+    box-shadow: 0 2px 12px rgba(26, 23, 20, 0.08);
+    transform: translateY(0);
+  }
+
+  .feature-icon {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-warm);
+    border-radius: 0.5rem;
+    color: var(--dark);
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+
+  .feature-card:hover .feature-icon {
+    background: var(--dark);
+    color: var(--bg-warm);
+  }
+
+  .feature-card[data-open='true'] .feature-icon {
+    background: var(--dark);
+    color: var(--bg-warm);
+  }
+
+  .feature-icon :global(svg) {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .feature-name {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--dark);
+    line-height: 1.3;
+  }
+
+  .feature-link {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--bg-warm);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    opacity: 0.7;
+    transition: opacity 0.15s;
+    margin-top: 0.5rem;
+  }
+
+  .feature-link::after {
+    content: '';
+    display: inline-block;
+    width: 0.6rem;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.15s;
+  }
+
+  .feature-link:hover {
+    opacity: 1;
+  }
+
+  .feature-link:hover::after {
+    width: 1rem;
+  }
+
+  /* popup */
+  .feature-popup {
+    position: absolute;
+    bottom: calc(100% + 0.65rem);
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    width: max(220px, 95%);
+    background: var(--dark);
+    color: #efe9df;
+    padding: 1.1rem 1.2rem;
+    border-radius: 0.625rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    z-index: 10;
+    box-shadow: 0 8px 30px rgba(26, 23, 20, 0.25);
+  }
+
+  .feature-popup::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 7px solid transparent;
+    border-top-color: var(--dark);
+  }
+
+  .feature-card[data-open='true'] .feature-popup {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .feature-popup-title {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 800;
+    margin: 0 0 0.35rem;
+    letter-spacing: -0.01em;
+  }
+
+  .feature-popup-desc {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    line-height: 1.55;
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  /* ---- responsive ---- */
   @media (max-width: 768px) {
-    .about-grid {
+    .about-split {
       grid-template-columns: 1fr;
-      gap: 3rem;
+    }
+
+    .about-map {
+      position: static;
+    }
+
+    .feature-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .feature-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 </style>
