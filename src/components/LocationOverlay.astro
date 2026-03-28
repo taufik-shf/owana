@@ -3,12 +3,13 @@ interface Props {
   name: string;
   coords: string;
   warning: string;
+  position?: 'left' | 'right';
 }
 
-const { name, coords, warning } = Astro.props;
+const { name, coords, warning, position = 'left' } = Astro.props;
 ---
 
-<div class="location-overlay">
+<div class:list={['location-overlay', `location-overlay--${position}`]}>
   <div class="label-border">
     <div class="label-inner">
       <div class="location-header">
@@ -46,6 +47,11 @@ const { name, coords, warning } = Astro.props;
     width: max-content;
     max-width: 260px;
     animation: fadeReveal 0.5s ease-out;
+  }
+
+  .location-overlay--right {
+    left: auto;
+    right: 1.25rem;
   }
 
   .label-border {
@@ -180,6 +186,11 @@ const { name, coords, warning } = Astro.props;
       bottom: 0.75rem;
       left: 0.75rem;
       max-width: 200px;
+    }
+
+    .location-overlay--right {
+      left: auto;
+      right: 0.75rem;
     }
 
     .label-inner {

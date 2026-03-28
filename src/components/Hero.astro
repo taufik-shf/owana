@@ -4,47 +4,40 @@ import LocationOverlay from './LocationOverlay.astro';
 
 interface Props {
   waLink: string;
+  title: string;
+  titleAccent: string;
+  titleMid: string;
+  titleHighlight: string;
+  ctaText: string;
 }
 
-const { waLink } = Astro.props;
+const { waLink, title, titleAccent, titleMid, titleHighlight, ctaText } = Astro.props;
 ---
 
 <div class="hero-frame" id="top">
   <section class="hero" aria-label="OWANA introduction">
     <div class="wrap hero-shell">
       <div class="hero-content">
-        <div class="hero-left">
+        <div class="hero-text">
           <h1 class="hero-title">
-            Your <span class="hero-title-accent">Amateur</span><br />
-            Guide to Central Sulawesi
+            {title} <span class="hero-title-accent">{titleAccent}</span><br />
+            {titleMid} <span class="hero-title-highlight">{titleHighlight}</span>
           </h1>
-        </div>
-        <div class="hero-right">
-          <p>
-          Central Sulawesi has megalithic stones archaeologists still can't explain, 
-          forest with species found nowhere else, and islands so remote the marine life is mostly untouched.
-          </p>
-
-          <p>
-          Come explore it with us!!
-          </p>
-          
+          <p class="hero-sub">We don't have all the answers.<br />But we know this place is worth getting lost in.</p>
           <a class="hero-cta" href={waLink} target="_blank" rel="noreferrer">
-            <span>Book a tour</span>
+            <span>{ctaText}</span>
             <svg class="hero-cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
         </div>
-      </div>
-      
-      <div class="hero-images">
         <div class="hero-image-wrapper">
           <img class="hero-image" src={heroImage.src} alt="Paisupok Lake, Central Sulawesi" loading="eager" />
           <LocationOverlay
             name="PAISUPOK LAKE"
             coords="-1.2112° N, 122.9809° E"
             warning="WARNING: Visibility exceptional. Depth perception may be compromised in clear waters."
+            position="right"
           />
         </div>
       </div>
@@ -81,25 +74,16 @@ const { waLink } = Astro.props;
   .hero-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: 5rem;
+    align-items: center;
     animation: fadeUp 0.6s ease-out;
     padding-top: 4rem;
   }
 
-  .hero-left {
+  .hero-text {
     display: flex;
     flex-direction: column;
-  }
-
-  .hero-right {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    align-items: flex-end;
-    justify-content: space-between;
-    text-align: right;
-    gap: 0.5rem;
-    padding-top: 1rem;
+    gap: 1.5rem;
   }
 
   .hero-title {
@@ -115,15 +99,24 @@ const { waLink } = Astro.props;
   .hero-title-accent {
     font-weight: 800;
     letter-spacing: -0.03em;
+    text-decoration: underline;
+    text-decoration-color: var(--lime);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+  }
+
+  .hero-title-highlight {
+    color: var(--forest);
+    white-space: nowrap;
   }
 
   .hero-sub {
     font-family: var(--font-sans);
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 1.65;
     color: var(--text);
-    max-width: 320px;
+    max-width: 400px;
   }
 
   .hero-cta {
@@ -139,6 +132,7 @@ const { waLink } = Astro.props;
     border-radius: 999px;
     transition: background 0.2s ease, transform 0.2s ease;
     margin-top: 0.5rem;
+    width: fit-content;
   }
 
   .hero-cta:hover {
@@ -154,12 +148,6 @@ const { waLink } = Astro.props;
     transform: translateX(4px);
   }
 
-  .hero-images {
-    display: flex;
-    justify-content: center;
-    padding-top: 2rem;
-  }
-
   .hero-image-wrapper {
     position: relative;
     width: 100%;
@@ -167,7 +155,7 @@ const { waLink } = Astro.props;
 
   .hero-image {
     width: 100%;
-    aspect-ratio: 16 / 3;
+    aspect-ratio: 4 / 3;
     object-fit: cover;
     display: block;
     border-radius: 1.5rem;
@@ -187,11 +175,15 @@ const { waLink } = Astro.props;
   @media (max-width: 768px) {
     .hero-content {
       grid-template-columns: 1fr;
+      gap: 2rem;
     }
 
-    .hero-right {
-      align-items: flex-start;
-      text-align: left;
+    .hero-text {
+      order: 1;
+    }
+
+    .hero-image-wrapper {
+      order: 2;
     }
 
     .hero-title {
