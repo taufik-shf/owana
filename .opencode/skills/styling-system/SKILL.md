@@ -57,6 +57,7 @@ Use CSS vars from `src/styles/global.scss`. Never hardcode hex/rgb.
 - `--dark`, `--text`, `--text-muted`
 - `--bg-warm`, `--bg-card`
 - `--forest`, `--forest-2`, `--lime`
+- `--owana-green-light`, `--owana-green`, `--owana-green-dark`
 - `--border`, `--border-subtle`
 
 **Fonts:**

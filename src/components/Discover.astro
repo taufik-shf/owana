@@ -62,7 +62,13 @@ const features: Feature[] = [
     <div class="wrap">
         <div class="exploration-grid">
           <div class="exploration-map">
-            <Map locations={[{ name: 'Palu', coords: [119.8707, -0.8917], desc: 'Provincial capital of Central Sulawesi' }]} zoom={4.5} />
+            <Map 
+              locations={[{ name: 'Palu', coords: [119.8707, -0.8917], desc: 'Provincial capital of Central Sulawesi' }]} 
+              zoom={5.0} 
+              title="Map of Central Sulawesi"
+              coords="1°42'S 121°35'E"
+              center={[121.2, -1.25]}
+            />
           </div>
           
           <div class="exploration-text">
