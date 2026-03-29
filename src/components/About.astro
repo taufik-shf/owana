@@ -1,4 +1,5 @@
 ---
+
 import Map from './Map.astro';
 import FeatureCard from './FeatureCard.astro';
 import { UtensilsCrossed, Activity, PawPrint, Waves, TreePine, Music } from 'lucide';
@@ -56,127 +57,197 @@ const features: Feature[] = [
 ---
 
 <section id="about" class="section about">
-  <div class="wrap">
-
-    <p class="mono-label">Discover</p>
-    <h2 class="about-title">Central Sulawesi</h2>
-
-    <div class="about-split">
-      <div class="about-map">
-        <Map locations={[{ name: 'Palu', coords: [119.8707, -0.8917], desc: 'Provincial capital of Central Sulawesi' }]} />
-      </div>
-
-      <div class="about-content">
-        <p class="about-body">
-        We've been to many places in Indonesia — they're all beautiful, 
-        and so is our hometown. Central Sulawesi has a lot of stories to tell. 
-        From how it was born, what it holds beneath the surface, 
-        the mystery of an ancient civilisation no one has fully explained,
-        a land rich in minerals and biodiversity — and the best food in Indonesia 
-        (our biased opinion —  but seriously try it)
-        </p>
-
-        <div class="about-stats">
-          <div class="stat">
-            <span class="stat-num">3</span>
-            <span class="stat-label">Tectonic plates</span>
+  <div class="wrap-wide">
+    <div class="map-paper">
+      <!-- Old map texture overlay inside paper -->
+      <div class="paper-texture"></div>
+      
+      <div class="exploration-grid">
+        <!-- Top Row: Map on left, Title + Content on right -->
+        <div class="exploration-map">
+          <Map locations={[{ name: 'Palu', coords: [119.8707, -0.8917], desc: 'Provincial capital of Central Sulawesi' }]} />
+        </div>
+        
+        <div class="exploration-text">
+          <!-- Large background text -->
+          <div class="bg-text">Central<br>Sulawesi</div>
+          
+          <div class="exploration-label">
+            <span class="mono-label">&mdash; Understand the place</span>
           </div>
-          <div class="stat">
-            <span class="stat-num">70+</span>
-            <span class="stat-label">Endemic Species</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">40+</span>
-            <span class="stat-label">Spoken Languages</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">#1</span>
-            <span class="stat-label">Nickel Producer</span>
+          <h2 class="about-title">Here's what you getting your self into</h2>
+
+          
+          <p class="about-body">
+          We've been to many places in Indonesia — they're all beautiful, 
+          and so is our hometown. Central Sulawesi has a lot of stories to tell. 
+          From how it was born, what it holds beneath the surface, 
+          the mystery of an ancient civilisation no one has fully explained,
+          a land rich in minerals and biodiversity — and the best food in Indonesia 
+          (our biased opinion — but seriously try it)
+          </p>
+
+          <div class="about-stats">
+            <div class="stat">
+              <span class="stat-num">3</span>
+              <span class="stat-label">Tectonic plates</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">70+</span>
+              <span class="stat-label">Endemic Species</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">40+</span>
+              <span class="stat-label">Spoken Languages</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">#1</span>
+              <span class="stat-label">Nickel Producer</span>
+            </div>
           </div>
         </div>
-
-        <div class="feature-grid">
+        
+        <!-- Bottom Row: Features spanning full width -->
+        <div class="exploration-features">
           {features.map((f) => (
             <FeatureCard icon={f.icon} title={f.title} desc={f.desc} />
           ))}
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
 <style>
   .about {
-    background: var(--bg-warm);
     padding: 5rem 0 6rem;
   }
 
-  /* ---- title ---- */
-
-  .about .mono-label {
-    font-family: var(--font-mono);
-    font-size: 0.84rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--text);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-bottom: 1rem;
+  .map-paper {
+    position: relative;
+    background: linear-gradient(135deg, #e8e0d0 0%, #ddd5c5 50%, #d6ceb8 100%);
+    border-radius: 4px;
+    padding: 2.5rem;
+    box-shadow: 
+      0 2px 8px rgba(139, 90, 43, 0.1),
+      0 8px 32px rgba(139, 90, 43, 0.08);
+    overflow: hidden;
   }
 
-  .about .mono-label::before {
+  .paper-texture {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.2;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+  }
+
+  .exploration-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    grid-template-rows: auto auto;
+    gap: 2.5rem;
+  }
+
+  .exploration-map {
+    grid-column: 1;
+    grid-row: 1;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--bg-map);
+    position: relative;
+    height: 420px;
+  }
+
+  .exploration-map::before {
     content: '';
-    display: inline-block;
-    width: 1.5rem;
-    height: 1.5px;
-    background: var(--text);
+    position: absolute;
+    inset: 0;
+    border: 1px dashed rgba(139, 90, 43, 0.15);
+    margin: 6px;
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .exploration-map :global(.map-card) {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .exploration-map :global(.map-header) {
+    background: rgba(232, 224, 208, 0.95);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .exploration-map :global(.map-body) {
+    background: var(--bg-map);
+  }
+
+  .exploration-text {
+    grid-column: 2;
+    grid-row: 1;
+    padding-left: 0.5rem;
+    padding-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    position: relative;
+  }
+
+  .bg-text {
+    position: absolute;
+    top: -1rem;
+    left: -1.5rem;
+    font-family: var(--font-sans);
+    font-size: clamp(7rem, 10vw, 8rem);
+    font-weight: 800;
+    line-height: 0.85;
+    color: var(--dark);
+    opacity: 0.06;
+    white-space: normal;
+    pointer-events: none;
+    letter-spacing: -0.04em;
+    user-select: none;
+    z-index: 0;
+  }
+
+  .exploration-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  @keyframes compassSpin {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(15deg); }
+  }
+
+  .mono-label {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: -0.5rem;
+    padding-left: 1.4rem;
   }
 
   .about-title {
     font-family: var(--font-sans);
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(2rem, 4vw, 3.5rem);
     font-weight: 800;
-    line-height: 1.05;
+    line-height: 1;
     letter-spacing: -0.04em;
     color: var(--dark);
     margin-bottom: 2rem;
-  }
-
-  .about-split {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 3rem;
-    align-items: stretch;
-  }
-
-  .about-map {
-    position: sticky;
-    top: 6rem;
-    border-radius: 0.875rem;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    height: 100%;
-    display: flex;
-  }
-
-  .about-map :global(.map-card) {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    border-radius: 0;
-    border: none;
-  }
-
-  .about-map :global(.map-body) {
-    flex: 1;
-    min-height: 0;
-  }
-
-  .about-map :global(#sulawesi-map) {
-    height: 100%;
+    max-width: 80%;
   }
 
   .about-body {
@@ -186,32 +257,22 @@ const features: Feature[] = [
     line-height: 1.7;
     color: var(--text);
     margin-bottom: 1.5rem;
+    max-width: 90%;
   }
 
-  .about-tagline {
-    margin: 0;
-    padding-left: 1.25rem;
-    border-left: 2px solid var(--dark);
-    font-family: var(--font-sans);
-    font-style: italic;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--dark);
+  /* Stats */
+  .about-stats {
+    display: flex;
+    gap: 4rem;
+    background: transparent;
+    border-radius: 4px;
   }
-
-/* ---- stats ---- */
-   .about-stats {
-     display: flex;
-     flex-wrap: nowrap;
-     gap: 2.5rem;
-     padding: 1.5rem 0;
-     border-top: 1px solid var(--border);
-     margin-bottom: 2rem;
-   }
 
   .stat {
-    display: grid;
-    gap: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    text-align: center;
   }
 
   .stat-num {
@@ -221,42 +282,99 @@ const features: Feature[] = [
     line-height: 1;
     letter-spacing: -0.02em;
     color: var(--dark);
+    margin-bottom: 0.25rem;
   }
 
   .stat-label {
     font-family: var(--font-mono);
-    font-size: 0.55rem;
-    letter-spacing: 0.12em;
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text);
+    color: var(--text-muted);
+    line-height: 1.3;
   }
 
-   /* ---- feature cards ---- */
-   .feature-grid {
-     display: grid;
-     grid-template-columns: repeat(3, 1fr);
-     gap: 0.75rem;
-   }
+  /* Features spanning full width */
+  .exploration-features {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    padding-top: 2rem;
+    border-top: 1px dashed rgba(139, 90, 43, 0.15);
+  }
 
-   /* ---- responsive ---- */
-   @media (max-width: 768px) {
-     .about-split {
-       grid-template-columns: 1fr;
-     }
+  /* Responsive design */
+  @media (max-width: 1024px) {
+    .map-paper {
+      padding: 2rem;
+    }
 
-     .about-map {
-       position: static;
-       height: 400px; /* Fixed height for map when in single column layout */
-     }
+    .exploration-grid {
+      grid-template-columns: 300px 1fr;
+      gap: 2rem;
+    }
 
-     .feature-grid {
-       grid-template-columns: repeat(2, 1fr);
-     }
-   }
+    .exploration-features {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
 
-   @media (max-width: 480px) {
-     .feature-grid {
-       grid-template-columns: repeat(1, 1fr);
-     }
-   }
+  @media (max-width: 768px) {
+    .map-paper {
+      padding: 1.5rem;
+    }
+
+    .exploration-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+    }
+
+    .exploration-map {
+      grid-column: 1;
+      grid-row: 1;
+      height: 350px;
+      margin-bottom: 0.5rem;
+    }
+
+    .exploration-text {
+      grid-column: 1;
+      grid-row: 2;
+      padding-left: 0;
+    }
+
+    .exploration-features {
+      grid-column: 1;
+      grid-row: 3;
+      grid-template-columns: repeat(2, 1fr);
+      margin-top: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .about {
+      padding: 3rem 0 4rem;
+    }
+
+    .map-paper {
+      padding: 1.25rem;
+      border-radius: 2px;
+    }
+
+    .exploration-features {
+      grid-template-columns: 1fr;
+    }
+
+    .about-stats {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      padding: 1rem;
+    }
+
+    .exploration-map {
+      height: 280px;
+    }
+  }
 </style>
