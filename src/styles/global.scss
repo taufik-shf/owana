@@ -32,10 +32,23 @@
   --font-serif: 'DM Serif Display', serif;
   --font-sans: 'Inter', sans-serif;
   --font-mono: 'Space Mono', monospace;
+
+  /* Type scale (1.25 ratio, major third) */
+  --text-xs: 0.64rem;
+  --text-sm: 0.8rem;
+  --text-base: 1rem;
+  --text-md: 1.25rem;
+  --text-lg: 1.5625rem;
+  --text-xl: 1.953rem;
+  --text-2xl: 2.441rem;
+  --text-3xl: 3.052rem;
+  --text-4xl: 3.815rem;
+  --text-5xl: 4.768rem;
 }
 
 
 
+$bp-sm: 48em;
 $bp-md: 76.8em;
 $bp-lg: 102.4em;
 $bp-xl: 128em;
@@ -130,7 +143,7 @@ p {
 .mono-label,
 .space-label {
   font-family: var(--font-mono);
-  font-size: 0.64rem;
+  font-size: var(--text-xs);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--mid);
@@ -147,7 +160,7 @@ p {
   background: var(--forest);
   color: var(--white);
   font-weight: 700;
-  font-size: 0.93rem;
+  font-size: var(--text-base);
   transition: background 0.25s ease, border-color 0.25s ease;
 
   &:hover,
@@ -159,7 +172,7 @@ p {
 
 .button-small {
   padding: 0.5rem 0.8rem;
-  font-size: 0.84rem;
+  font-size: var(--text-sm);
 }
 
 .button-ghost {
