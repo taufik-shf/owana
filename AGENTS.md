@@ -12,15 +12,9 @@ Local tour in Sulawesi Tengah. Small groups, off-itinerary. Not corporate.
 **Voice**: Honest, curious, local. Dry wit. We're still learning.
 **Never**: "breathtaking", "pristine", "untouched paradise", "sustainability"
 
-## Design Tokens
-```scss
---dark: #1a1714;      // Headlines, CTAs
---text: #5a544a;      // Body copy
---bg-warm: #efe9df;   // Background
---forest: #2a5c1a;    // WhatsApp button
---lime: #6fa82f;      // Accents
-```
-Fonts: Inter 800 (headlines), Inter 400 (body), Space Mono (labels)
+## Design System
+
+When asked to follow the design system (or when editing/auditing CSS), load the `styling-system` skill via the Skill tool. It covers type scale, spacing, media queries, tokens, and layout rules.
 
 ## Code Style
 - `.astro` files, PascalCase component names
@@ -29,7 +23,7 @@ Fonts: Inter 800 (headlines), Inter 400 (body), Space Mono (labels)
 - Semantic HTML, `alt` on images, ARIA attributes
 - TypeScript strict mode (`astro/tsconfigs/strict`), explicit prop types
 - Minimal client-side JS; vanilla JS at bottom of file
-- Use design tokens (`var(--dark)`); mobile-first responsive CSS
+- Use design tokens (`var(--dark)`); desktop-first responsive CSS
 
 ## Component Patterns
 - Props via `interface Props` in frontmatter
