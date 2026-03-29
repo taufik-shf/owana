@@ -1,11 +1,13 @@
 ---
-import PackageCard from './PackageCard.astro';
-
 interface Props {
   packageRows: Array<{
     title: string;
     description: string;
     slug: string;
+    price: string;
+    destination: string;
+    duration: string;
+    includes: string[];
   }>;
   waLink: string;
 }
@@ -18,161 +20,494 @@ const packageImages = [
   'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80',
   'https://images.unsplash.com/photo-1472396961693-142e6e269027?w=800&q=80',
   'https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800&q=80',
-  'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80',
 ];
 
 const getImage = (index: number) => packageImages[index % packageImages.length];
+
+const includeIcons: Record<string, { label: string; path: string }> = {
+  accommodation: {
+    label: 'Accommodation',
+    path: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1',
+  },
+  meals: {
+    label: 'Meals',
+    path: 'M12 6v6m0 0v6m0-6h6m-6 0H6',
+  },
+  guide: {
+    label: 'Guide',
+    path: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
+  },
+  transport: {
+    label: 'Transport',
+    path: 'M8 17h8M8 17v4h8v-4M8 17l-2-7h12l-2 7M6 10V6h12v4',
+  },
+  boat: {
+    label: 'Boat',
+    path: 'M3 17l3-3 3 3 3-3 3 3 3-3 3 3M5 14V7a2 2 0 012-2h10a2 2 0 012 2v7',
+  },
+};
 ---
 
-<section id="packages" class="section packages">
-  <div class="wrap">
-    <div class="packages-layout">
-      <div class="packages-intro">
-        <p class="mono-label">PACKAGES</p>
-        <h2>Go somewhere<br />nobody talks about.</h2>
-        <p class="intro-text">
-          We're still learning every road and every crossing. These routes are real, not polished for Instagram.
-        </p>
-        <a href={waLink} class="packages-cta" target="_blank" rel="noreferrer">
-          Start planning
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
+<section id="packages-grid" class="pg">
+  <div class="wrap-wide">
+    <header class="pg-header">
+      <span class="pg-label">Routes</span>
+      <h2 class="pg-title">
+        Go somewhere<br />nobody talks about.
+      </h2>
+      <p class="pg-intro">
+        We're still learning every road and every crossing.
+        These routes are real, not polished for Instagram.
+      </p>
+    </header>
+
+    <div class="pg-grid">
+      {packageRows.map((pkg, i) => (
+        <article class="pg-card">
+          <a href={pkg.slug} class="pg-card-link" aria-label={pkg.title}>
+            <div class="pg-card-media">
+              <img src={getImage(i)} alt={pkg.title} loading="lazy" />
+            </div>
+            <div class="pg-card-shade"></div>
+            <span class="pg-card-marker">◉</span>
+            <span class="pg-card-tag">{pkg.duration}</span>
+            <div class="pg-card-body">
+              <div class="pg-card-meta">
+                <span class="pg-card-dest">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  {pkg.destination}
+                </span>
+                <span class="pg-card-price">{pkg.price}</span>
+              </div>
+              <h3 class="pg-card-title">{pkg.title}</h3>
+              <p class="pg-card-desc">{pkg.description}</p>
+              <div class="pg-card-includes">
+                {pkg.includes.map((item) => (
+                  <span class="pg-include" title={includeIcons[item]?.label || item}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d={includeIcons[item]?.path || ''}/>
+                    </svg>
+                    <span class="pg-include-text">{includeIcons[item]?.label || item}</span>
+                  </span>
+                ))}
+              </div>
+              <span class="pg-card-cta">
+                Explore this route
+                <span class="pg-card-dash">—</span>
+              </span>
+            </div>
+          </a>
+        </article>
+      ))}
+
+      <article class="pg-card pg-card--custom">
+        <a href={waLink} class="pg-card-link" target="_blank" rel="noreferrer" aria-label="Request custom route">
+          <div class="pg-custom-rings" aria-hidden="true"></div>
+          <div class="pg-custom-body">
+            <span class="pg-custom-label">/// Custom</span>
+            <h3 class="pg-custom-title">Your own route</h3>
+            <p class="pg-custom-desc">
+              No fixed itinerary, no script.
+              We help you build something that fits.
+            </p>
+            <span class="pg-custom-cta">
+              Tell us what you need
+              <span class="pg-custom-dash">—</span>
+            </span>
+          </div>
         </a>
-      </div>
-      
-      <div class="packages-grid">
-        {
-          packageRows.map((item, index) => (
-            <PackageCard
-              title={item.title}
-              description={item.description}
-              slug={item.slug}
-              waLink={waLink}
-              image={getImage(index)}
-              tag={index === 0 ? 'Most Popular' : undefined}
-              variant={index === 0 ? 'featured' : index > 2 ? 'compact' : 'standard'}
-              index={index}
-            />
-          ))
-        }
-      </div>
+      </article>
     </div>
   </div>
 </section>
 
 <style>
-  .packages {
+  .pg {
+    padding-bottom: 6rem;
     background: var(--bg-warm);
-    padding: 6rem 0 7rem;
   }
 
-  .packages-layout {
-    display: grid;
-    grid-template-columns: 380px 1fr;
-    gap: 5rem;
-    align-items: start;
+  .pg-header {
+    text-align: center;
+    margin-bottom: 4rem;
   }
 
-  @media (max-width: 1023px) {
-    .packages-layout {
-      grid-template-columns: 1fr;
-      gap: 4rem;
-    }
-  }
-
-  .packages-intro {
-    position: sticky;
-    top: 6rem;
-  }
-
-  .packages-intro .mono-label {
+  .pg-label {
+    display: block;
     font-family: var(--font-mono);
-    font-size: 0.64rem;
+    font-size: var(--text-sm);
     letter-spacing: 0.14em;
     text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .pg-title {
+    font-family: var(--font-sans);
+    font-size: var(--text-5xl);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    color: var(--dark);
+    margin: 0 0 1.6rem 0;
+  }
+
+  .pg-intro {
+    font-family: var(--font-sans);
+    font-size: var(--text-md);
+    line-height: 1.7;
     color: var(--text);
+    max-width: 52ch;
+    margin: 0 auto;
+  }
+
+  .pg-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.6rem;
+  }
+
+  .pg-card {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.35s ease,
+                filter 0.35s ease;
+  }
+
+  .pg-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 48px rgba(26, 23, 20, 0.18);
+    filter: brightness(1.05);
+  }
+
+  .pg-card-link {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    height: 40rem;
+  }
+
+  .pg-card-media {
+    position: absolute;
+    inset: 0;
+  }
+
+  .pg-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .pg-card-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(26, 23, 20, 0.92) 0%,
+      rgba(26, 23, 20, 0.6) 35%,
+      rgba(26, 23, 20, 0.15) 65%,
+      rgba(26, 23, 20, 0.03) 100%
+    );
+    pointer-events: none;
+  }
+
+  .pg-card-marker {
+    position: absolute;
+    top: 1.6rem;
+    left: 1.6rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-md);
+    color: var(--lime);
+    z-index: 2;
+    text-shadow: 0 1px 4px rgba(26, 23, 20, 0.5);
+  }
+
+  .pg-card-tag {
+    position: absolute;
+    top: 1.6rem;
+    right: 1.6rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: rgba(26, 23, 20, 0.5);
+    backdrop-filter: blur(8px);
+    padding: 0.4rem 1rem;
+    border-radius: 0.4rem;
+    z-index: 2;
+    border: 1px solid rgba(250, 247, 242, 0.15);
+  }
+
+  .pg-card-body {
+    position: relative;
+    z-index: 2;
+    margin-top: auto;
+    padding: 2rem;
+  }
+
+  .pg-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+  }
+
+  .pg-card-dest {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(250, 247, 242, 0.6);
+  }
+
+  .pg-card-price {
+    font-family: var(--font-sans);
+    font-size: var(--text-md);
+    font-weight: 700;
+    color: var(--lime);
+    letter-spacing: -0.01em;
+  }
+
+  .pg-card-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    margin: 0 0 0.6rem 0;
+  }
+
+  .pg-card-desc {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.7;
+    color: rgba(250, 247, 242, 0.65);
+    margin: 0 0 1.2rem 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .pg-card-includes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .pg-include {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(250, 247, 242, 0.1);
+    border: 1px solid rgba(250, 247, 242, 0.12);
+    border-radius: 0.4rem;
+    color: rgba(250, 247, 242, 0.6);
+    cursor: default;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .pg-include:hover {
+    background: rgba(250, 247, 242, 0.18);
+    border-color: rgba(250, 247, 242, 0.25);
+    color: rgba(250, 247, 242, 0.85);
+  }
+
+  .pg-include svg {
+    flex-shrink: 0;
+  }
+
+  .pg-include-text {
+    max-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: max-width 0.25s ease, margin 0.25s ease, opacity 0.2s ease;
+    opacity: 0;
+    margin-left: 0;
+  }
+
+  .pg-include:hover .pg-include-text {
+    max-width: 12rem;
+    opacity: 1;
+    margin-left: 0.4rem;
+  }
+
+  .pg-card-cta {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    margin-bottom: 1rem;
-  }
-
-  .packages-intro .mono-label::before {
-    content: '';
-    display: block;
-    width: 1.5rem;
-    height: 1.5px;
-    background: var(--text);
-  }
-
-  .packages-intro h2 {
-    font-family: var(--font-sans);
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -0.04em;
-    color: var(--dark);
-    margin: 0 0 1.5rem 0;
-  }
-
-  .intro-text {
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    line-height: 1.7;
-    color: var(--text);
-    margin: 0 0 2rem 0;
-  }
-
-  .packages-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 1.75rem;
-    background: var(--dark);
-    color: var(--bg-warm);
+    color: var(--lime);
     font-family: var(--font-sans);
     font-weight: 600;
-    font-size: 0.95rem;
-    border-radius: 999px;
-    text-decoration: none;
-    transition: all 0.3s ease;
+    font-size: var(--text-base);
+    transition: gap 0.25s ease;
   }
 
-  .packages-cta:hover {
-    background: var(--forest);
+  .pg-card:hover .pg-card-cta {
+    gap: 1.2rem;
+  }
+
+  .pg-card-dash {
+    transition: transform 0.25s ease;
+  }
+
+  .pg-card:hover .pg-card-dash {
     transform: translateX(4px);
   }
 
-  .packages-cta svg {
-    transition: transform 0.3s ease;
+  .pg-card--custom {
+    background: var(--dark);
   }
 
-  .packages-cta:hover svg {
+  .pg-card--custom:hover {
+    box-shadow: 0 16px 48px rgba(26, 23, 20, 0.25);
+  }
+
+  .pg-custom-rings {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .pg-custom-rings::before,
+  .pg-custom-rings::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    border: 1px dashed rgba(250, 247, 242, 0.06);
+    transition: border-color 0.4s ease;
+  }
+
+  .pg-custom-rings::before {
+    width: 16rem;
+    height: 16rem;
+    top: -8rem;
+    left: -8rem;
+  }
+
+  .pg-custom-rings::after {
+    width: 10rem;
+    height: 10rem;
+    top: -5rem;
+    left: -5rem;
+  }
+
+  .pg-card--custom:hover .pg-custom-rings::before,
+  .pg-card--custom:hover .pg-custom-rings::after {
+    border-color: rgba(111, 168, 47, 0.2);
+  }
+
+  .pg-custom-body {
+    position: relative;
+    z-index: 1;
+    margin-top: auto;
+    padding: 2rem;
+  }
+
+  .pg-custom-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lime);
+    display: block;
+    margin-bottom: 0.8rem;
+  }
+
+  .pg-custom-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    margin: 0 0 0.6rem 0;
+  }
+
+  .pg-custom-desc {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.7;
+    color: rgba(250, 247, 242, 0.55);
+    margin: 0 0 1.6rem 0;
+  }
+
+  .pg-custom-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--lime);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: var(--text-base);
+    transition: gap 0.25s ease;
+  }
+
+  .pg-card--custom:hover .pg-custom-cta {
+    gap: 1.2rem;
+  }
+
+  .pg-custom-dash {
+    transition: transform 0.25s ease;
+  }
+
+  .pg-card--custom:hover .pg-custom-dash {
     transform: translateX(4px);
   }
 
-  .packages-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+  @media (max-width: 76.8em) {
+    .pg-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
-  :global(.card--featured) {
-    grid-column: 1 / -1;
-  }
-
-  @media (max-width: 639px) {
-    .packages {
-      padding: 4rem 0 5rem;
+  @media (max-width: 48em) {
+    .pg {
+      padding: 4.5rem 0;
     }
 
-    .packages-grid {
+    .pg-header {
+      margin-bottom: 2.4rem;
+    }
+
+    .pg-title {
+      font-size: var(--text-3xl);
+    }
+
+    .pg-grid {
       grid-template-columns: 1fr;
     }
 
-    :global(.card--featured) {
-      grid-column: 1;
+    .pg-card-link {
+      height: 36rem;
+    }
+
+    .pg-card-title,
+    .pg-custom-title {
+      font-size: var(--text-xl);
+    }
+
+    .pg-card-body,
+    .pg-custom-body {
+      padding: 1.6rem;
     }
   }
 </style>
