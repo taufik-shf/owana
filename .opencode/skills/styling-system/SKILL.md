@@ -30,6 +30,8 @@ Major Third (1.25 ratio). Use these CSS variables from `global.scss`:
 
 Body copy, labels, nav links — use tokens. No `0.85rem`, `0.93rem`, `1.26rem` etc.
 
+**Do not use `clamp()` for font sizes.** Use a single token for each breakpoint. Override in media queries if needed.
+
 ## Spacing
 
 4px grid: `0.4`, `0.6`, `0.8`, `1.2`, `1.6`, `2`, `2.4` rem. No `0.35`, `0.56`, `0.64`, `0.65`, `1.04`.
