@@ -13,17 +13,22 @@ Audit and fix CSS to comply with this project's design system. Invoke when revie
 
 ## Type Scale
 
-Major Third (1.25). Only these steps:
+Major Third (1.25 ratio). Use these CSS variables from `global.scss`:
 
-| Step | rem | px |
-|------|-----|----|
-| 0 | `1rem` | 10 |
-| 1 | `1.25rem` | 12.5 |
-| 2 | `1.5rem` | 15 |
-| 3 | `2rem` | 20 |
-| 4 | `2.5rem` | 25 |
+| Token | rem | px |
+|-------|-----|----|
+| `--text-xs` | `0.64rem` | 6.4 |
+| `--text-sm` | `0.8rem` | 8 |
+| `--text-base` | `1rem` | 10 |
+| `--text-md` | `1.25rem` | 12.5 |
+| `--text-lg` | `1.5625rem` | 15.6 |
+| `--text-xl` | `1.953rem` | 19.5 |
+| `--text-2xl` | `2.441rem` | 24.4 |
+| `--text-3xl` | `3.052rem` | 30.5 |
+| `--text-4xl` | `3.815rem` | 38.2 |
+| `--text-5xl` | `4.768rem` | 47.7 |
 
-Body copy, labels, nav links — round to clean steps. No `0.85rem`, `0.93rem`, `1.26rem`, `1.42rem`, `1.92rem` etc.
+Body copy, labels, nav links — use tokens. No `0.85rem`, `0.93rem`, `1.26rem` etc.
 
 ## Spacing
 
@@ -31,33 +36,38 @@ Body copy, labels, nav links — round to clean steps. No `0.85rem`, `0.93rem`, 
 
 ## Media Queries
 
-`em` only. Divide px by 10:
+`em` only. Divide px by 16 (browser default):
 
-| Target | Value |
-|--------|-------|
-| 639px | `63.9em` |
-| 768px | `76.8em` |
-| 1024px | `102.4em` |
-| 1280px | `128em` |
+| Token | Target | Value |
+|-------|--------|-------|
+| `$bp-sm` | 768px | `48em` |
+| `$bp-md` | 1229px | `76.8em` |
+| `$bp-lg` | 1638px | `102.4em` |
+| `$bp-xl` | 2048px | `128em` |
 
-Desktop-first (`max-width`). Source: `_Docs/DESIGN_GUIDE.md`.
+Desktop-first (`max-width`). Define in `global.scss`.
 
 ## Tokens
 
-Use CSS vars from `src/styles/global.scss`. Never hardcode hex/rgb. Key vars:
+Use CSS vars from `src/styles/global.scss`. Never hardcode hex/rgb.
 
+**Colors:**
 - `--dark`, `--text`, `--text-muted`
 - `--bg-warm`, `--bg-card`
 - `--forest`, `--forest-2`, `--lime`
 - `--border`, `--border-subtle`
+
+**Fonts:**
 - `--font-serif`, `--font-sans`, `--font-mono`
+
+**Type scale:**
+- `--text-xs` through `--text-5xl` (see Type Scale section)
 
 ## Layout Defaults
 
-From `_Docs/DESIGN_GUIDE.md`:
-
-- Container: `.wrap` — `min(1120px, calc(100% - 2.5rem))`
-- Section padding: `.section` — `5rem 0 6rem` (desktop)
+- Container wide: `.wrap-wide` — `min(1120px, calc(100% - 2.5rem))`
+- Container narrow: `.wrap` — `min(960px, calc(100% - 2.5rem))`
+- Section padding: `.section` — `4.5rem 0` mobile, `6rem 0` desktop
 - Card radius: `1rem`
 - Pill radius: `999px`
 
