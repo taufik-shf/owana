@@ -36,9 +36,9 @@
 
 
 
-$bp-md: 768px;
-$bp-lg: 1024px;
-$bp-xl: 1280px;
+$bp-md: 76.8em;
+$bp-lg: 102.4em;
+$bp-xl: 128em;
 
 /* Mixins */
 @mixin section-space {
@@ -57,6 +57,10 @@ $bp-xl: 1280px;
 /* Base */
 * {
   box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%; /* 1rem = 10px */
 }
 
 html,
